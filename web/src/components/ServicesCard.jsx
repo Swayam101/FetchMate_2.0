@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import ServicesThumb from "../assets/servicesThumb.png";
 import BookServiceModal from "./BookServiceModal";
-
+import useUserStore from "../Store/userStore";
+import { toast } from "react-toastify";
 
 const ServicesCard = ({ name, image, description }) => {
-  const [isModalOpen,setIsModalOpen]=useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
   return (
     <div className="flex flex-col bg-white w-80 rounded-lg px-4 h-96 justify-evenly box-shadow-3d">
       <div className="flex items-center justify-around">
@@ -15,10 +16,22 @@ const ServicesCard = ({ name, image, description }) => {
         {description}
       </div>
       <div className="flex justify-center ">
-        <button onClick={()=>setIsModalOpen(true)} className="bg-yellow-500 p-2 rounded-md font-bold">
+        <button
+          onClick={() => {
+            if (!isLoggedIn)
+              return toast.error("Log In To Perform This Action", {
+                toastId: "book-service-modal",
+              });
+            setIsModalOpen(true);
+          }}
+          className="bg-yellow-500 p-2 rounded-md font-bold"
+        >
           Book Service
         </button>
-        <BookServiceModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}/>
+        <BookServiceModal
+          isModalOpen={isModalOpen}
+          setIsModalOpen={setIsModalOpen}
+        />
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import OrangeLogo from "../assets/FETCHMATE LOGO/OrangeLogo.png";
 import { AiOutlineSearch } from "react-icons/ai";
-import { FaCartShopping, FaLocationPinLock } from "react-icons/fa6";
+import { FaCartShopping } from "react-icons/fa6";
 import { FaUserAlt } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import useUserStore from "../Store/userStore";
@@ -10,7 +10,7 @@ import AvatarDropDown from "./AvatarDropDown";
 const NavBar = () => {
   const isLoggedIn = useUserStore((state) => state.isLoggedIn);
 
-  const [menuState,setMenuState]=useState()
+  const [menuState, setMenuState] = useState();
 
   return (
     <nav
@@ -86,7 +86,9 @@ const NavBar = () => {
             />
           </div>
           {isLoggedIn ? (
-            <NavLink to={"/cart"}><FaCartShopping size={35}/></NavLink>
+            <NavLink to={"/cart"}>
+              <FaCartShopping size={35} />
+            </NavLink>
           ) : (
             <Link to="/login">
               <button
@@ -100,10 +102,15 @@ const NavBar = () => {
             </Link>
           )}
           {isLoggedIn ? (
-            <button  onClick={()=>setMenuState(!menuState)}>
-              <div ><FaUserAlt size={30} /></div>
+            <div
+              onClick={() => setMenuState(!menuState)}
+              className="cursor-pointer"
+            >
+              <div>
+                <FaUserAlt size={30} />
+              </div>
               <AvatarDropDown displayState={menuState} />
-            </button>
+            </div>
           ) : (
             <Link to="/signup">
               <button

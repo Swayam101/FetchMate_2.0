@@ -18,7 +18,7 @@ const eventSchema = new Schema({
   description: {
     type: String,
     min: [15, "Description Must Be atleast 15 Characters Long"],
-    min: [50, "Description Can Be atmost 15 Characters Long"],
+    max: [50, "Description Can Be atmost 15 Characters Long"],
   },
 });
 

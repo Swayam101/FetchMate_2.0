@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { MdDelete } from "react-icons/md";
-import axios from "../../utils/axiosConfig";
+import request from "../../services/axios.service";
 import useUserStore from "../../Store/userStore";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -31,14 +31,14 @@ const PetSitterCard = ({
   setPetModal,
   reqId,
   initialStatus,
-  pickUpTime
+  pickUpTime,
 }) => {
   const token = useUserStore((status) => status.jwtToken);
 
   const navigate = useNavigate();
 
   const reactOnRequest = async (status) => {
-    const response = await axios({
+    const response = await request({
       method: "POST",
       url: `/service/${reqId}/${status}`,
       headers: {
@@ -50,17 +50,17 @@ const PetSitterCard = ({
     window.location.reload(true);
   };
 
-  const deleteRequestHandler=async ()=>{
-    
-      const response=await axios({
-        method: "DELETE",
-        url: `/service/${reqId}`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-    if(response.data.status==true) toast.success("Request Deleted Successfully!")
-  }
+  const deleteRequestHandler = async () => {
+    const response = await request({
+      method: "DELETE",
+      url: `/service/${reqId}`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response.data.status == true)
+      toast.success("Request Deleted Successfully!");
+  };
 
   return (
     <div className="max-w-xs">
@@ -96,8 +96,12 @@ const PetSitterCard = ({
                 <td className="px-2 py-2">{email}</td>
               </tr>
               <tr>
-                <td className="px-2 py-2 text-gray-500 font-semibold">Pick Up Time:</td>
-                <td className="px-2 py-2">{(new Date(pickUpTime)).toLocaleString("en-US")}</td>
+                <td className="px-2 py-2 text-gray-500 font-semibold">
+                  Pick Up Time:
+                </td>
+                <td className="px-2 py-2">
+                  {new Date(pickUpTime).toLocaleString("en-US")}
+                </td>
               </tr>
             </tbody>
           </table>
@@ -110,7 +114,6 @@ const PetSitterCard = ({
             >
               Pet Details
             </button>
-           
           </div>
           {initialStatus == "hanging" ? (
             <div className="flex justify-center gap-6">
@@ -164,7 +167,12 @@ const PetSitterCard = ({
             </div>
           ) : (
             <div className="text-center flex justify-center gap-4 items-center px-6">
-              <RejectedButton /> <MdDelete onClick={deleteRequestHandler} className="text-red-700 cursor-pointer" size={30} />
+              <RejectedButton />{" "}
+              <MdDelete
+                onClick={deleteRequestHandler}
+                className="text-red-700 cursor-pointer"
+                size={30}
+              />
             </div>
           )}
         </div>

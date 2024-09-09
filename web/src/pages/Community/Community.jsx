@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import Nehu from "../../assets/nehu.png";
 import BlogCard from "../../components/BlogCard";
@@ -6,36 +6,36 @@ import PetSitterCard from "../../components/PetSitterCard";
 import UploadBlogModal from "../../components/community/UploadBlogModal";
 
 import useUserStore from "../../Store/userStore";
-import axios from "../../utils/axiosConfig";
+import request from "../../services/axios.service";
 import { Link } from "react-router-dom";
 
 const Community = () => {
   const [blogAddModal, setBlogAddModal] = useState(false);
-  const [blogs, setBlogs] = useState([{author:{profileUrl:"profile"}}]);
+  const [blogs, setBlogs] = useState([{ author: { profileUrl: "profile" } }]);
   const token = useUserStore((state) => state.jwtToken);
   const userData = useUserStore((state) => state.userData);
 
   useEffect(() => {
-    axios({
+    request({
       method: "GET",
       url: "/blog",
       headers: {
         Authorization: `Bearer ${token}`,
       },
     }).then((response) => {
-     setBlogs(response.data.blogs);
+      setBlogs(response.data.blogs);
     });
   }, []);
 
-  const observer=new IntersectionObserver((entries)=>{
-    entries.forEach((entry)=>{
-      if(entry.isIntersecting) entry.target.classList.add('animate-appear')
-      else entry.target.classList.remove('animate-appear')
-    })
-  })
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) entry.target.classList.add("animate-appear");
+      else entry.target.classList.remove("animate-appear");
+    });
+  });
 
-  const appearers=document.querySelectorAll('.anim')
-  appearers.forEach((el)=>observer.observe(el))
+  const appearers = document.querySelectorAll(".anim");
+  appearers.forEach((el) => observer.observe(el));
 
   return (
     <div className="grid grid-cols-4 gap-2 mt-10 ">
@@ -49,11 +49,9 @@ const Community = () => {
           />{" "}
           <div className="text-center font-bold pt-3">Nehal Patidar</div>
           <Link to={"/services"}>
-          <button
-            className="border-3 p-2 text-cyan-500 border-cyan-500 rounded-xl"
-          >
-            Book Pet Service
-          </button>
+            <button className="border-3 p-2 text-cyan-500 border-cyan-500 rounded-xl">
+              Book Pet Service
+            </button>
           </Link>
           <div
             style={{ height: "1%", borderWidth: "1px" }}
@@ -75,7 +73,11 @@ const Community = () => {
           style={{ height: "10%" }}
           className="thumb flex items-center justify-center gap-4"
         >
-          <img className="rounded-full h-16 w-16" src={userData.profileUrl} alt="" />
+          <img
+            className="rounded-full h-16 w-16"
+            src={userData.profileUrl}
+            alt=""
+          />
           <input
             style={{ borderRadius: "4%/50%", cursor: "pointer" }}
             className="w-3/4 h-10 px-4 rounded-lg border-2"
@@ -90,10 +92,16 @@ const Community = () => {
           />
         </div>
         <div className="mt-12 flex flex-col gap-4 mx-4">
-         {blogs.map(({author,title,content})=>{
-          return <BlogCard image={author.profileUrl} username={author.name} content={content} title={title}   />
-         })}
-         
+          {blogs.map(({ author, title, content }) => {
+            return (
+              <BlogCard
+                image={author.profileUrl}
+                username={author.name}
+                content={content}
+                title={title}
+              />
+            );
+          })}
         </div>
       </div>
       <div className="col-span-1 flex gap-4 flex-col pt-2">

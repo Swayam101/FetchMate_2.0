@@ -2,35 +2,37 @@ import BlueLogo from "../assets/FETCHMATE LOGO/BlueLogo.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-import axios from "../utils/axiosConfig";
+import request from "../services/axios.service";
 import { toast } from "react-toastify";
 
 const SignUp = () => {
   const [formState, setFormState] = useState({
-    name:"",
-    email:"",
-    DOB:"",
-    phoneNumber:"",
-    altNumber:"",
-    address:"",
-    city:"",
-    state:"",
-    country:"",
-    password:"",
-    terms:""
+    name: "",
+    email: "",
+    DOB: "",
+    phoneNumber: "",
+    altNumber: "",
+    address: "",
+    city: "",
+    state: "",
+    country: "",
+    password: "",
+    terms: "",
   });
   const navigate = useNavigate();
-
 
   const submitForm = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "/auth/signup",
-        formState
-      );
-      if(response.data.status==false) throw new Error(response.data.message)
-      navigate("/login")
+      const response = await request({
+        url: "/auth/signup",
+        data: formState,
+        method: "POST",
+      });
+      console.log("singup response : ", response);
+
+      if (!response.status) throw new Error(response.message);
+      navigate("/login");
       toast.success("Sign Up Successful", {
         position: "top-center",
         autoClose: 1500,
@@ -40,11 +42,10 @@ const SignUp = () => {
         draggable: true,
         progress: undefined,
         theme: "light",
-        });
-      // if(response.data.message=="Please Accept The Terms And Conditions") 
+      });
+      // if(response.data.message=="Please Accept The Terms And Conditions")
       // if(response.data.message=="Validation Error Occured!") throw new Error(response.data.error[0])
       // if(response.data.error.code==11000) throw new Error(response.data.message)
-      
     } catch (error) {
       toast.error(error.message, {
         position: "top-center",
@@ -55,25 +56,22 @@ const SignUp = () => {
         draggable: true,
         progress: undefined,
         theme: "light",
-        });
+      });
     }
   };
 
   const collectFormData = (e) => {
-
     const key = e.target.getAttribute("name");
     const newObj = { ...formState };
-    if(e.target.name=="terms"){
-      newObj[key]=e.target.checked
-    }
-   else newObj[key] = e.target.value;
-   setFormState(newObj);
+    if (e.target.name == "terms") {
+      newObj[key] = e.target.checked;
+    } else newObj[key] = e.target.value;
+    setFormState(newObj);
   };
 
   return (
     <>
       <div className="flex ">
-      
         <section className="bg-gray-50 dark:bg-gray-900 flex-1 w-4/5">
           <div className="flex items-center justify-center py-6 ">
             {/* paper */}
