@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import ReactModal from "react-modal";
-import axios from "../utils/axiosConfig";
+import request from "../services/axios.service";
 import useUserStore from "../Store/userStore";
 import SecondryPetSitterCard from "./SecondryPetSitterCard";
 import { toast } from "react-toastify";
 
 const BookServiceModal = ({ isModalOpen, setIsModalOpen }) => {
-  
   const [myPets, setMyPets] = useState([{ _id: "", name: "" }]);
 
-  const [petSitter, setPetSitters] = useState([
+  const [loading, setLoading] = useState(true);
+
+  const [petSitter, setPetSitter] = useState([
     { sameCity: { city: "", name: "", profileUrl: "" } },
   ]);
   const token = useUserStore((state) => state.jwtToken);
@@ -18,51 +19,43 @@ const BookServiceModal = ({ isModalOpen, setIsModalOpen }) => {
 
   const [formState, setFormState] = useState({});
 
-  console.log(formState);
-
-  const getMyPets = () => {
-    axios({
+  const getMyPets = async () => {
+    const response = await request({
       method: "GET",
       url: "/pet",
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    })
-      .then((res) => {
-        setMyPets(res.data.pets);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    });
+    if (!response.data.status) throw new Error(response.data.message);
+    setMyPets(response.pets);
   };
 
-  const getLocals = () => {
-    axios({
+  const getLocals = async () => {
+    const response = await request({
       url: "/auth/same-city",
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    })
-      .then((res) => {
-        console.log(res.data.locals);
-        setPetSitters(res.data.locals);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    });
+
+    if (!response.data.status) throw new Error(response.data.message);
+    setPetSitter(response.data.locals);
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        getMyPets();
-        getLocals();
-      } catch (error) {
-        console.error(error);
-      }
+      getMyPets();
+      getLocals();
     };
-    fetchData();
+    fetchData()
+      .catch((err) => {
+        toast.error(err.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   const collectFormData = (e) => {
@@ -75,7 +68,7 @@ const BookServiceModal = ({ isModalOpen, setIsModalOpen }) => {
     const newObj = { ...formState };
     newObj["petSitter"] = petSitter[selected].sameCity._id;
     setFormState(newObj);
-    axios({
+    request({
       url: "/service",
       method: "POST",
       data: formState,
@@ -92,6 +85,7 @@ const BookServiceModal = ({ isModalOpen, setIsModalOpen }) => {
         toast.error(err.message);
       });
   };
+  if (loading) return <div>Loading Stuff</div>;
   return (
     <ReactModal
       style={{
@@ -120,8 +114,10 @@ const BookServiceModal = ({ isModalOpen, setIsModalOpen }) => {
           className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         >
           <option value="none"> none</option>
-          {myPets.map(({ _id, name }) => (
-            <option value={_id}>{name}</option>
+          {myPets.map(({ _id, name }, index) => (
+            <option value={_id} key={"pet-select-options" + index}>
+              {name}
+            </option>
           ))}
         </select>
 

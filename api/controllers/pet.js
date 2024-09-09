@@ -22,18 +22,36 @@ exports.addPet = asyncWrapper(async (req, res, next) => {
     imageUrl,
   });
 
-  res.json(pet);
+  const response = new CustomResponse(
+    true,
+    { pet },
+    null,
+    "pet added successfully"
+  );
+
+  res.status(200).json(response);
 });
 
 exports.getAllPets = asyncWrapper(async (req, res, next) => {
-  console.log("Route Accessed!");
   const user = req.user._id;
   const pets = await Pet.find({ petParent: user });
-  res.json({pets,status:true});
+  const response = new CustomResponse(
+    true,
+    { pets },
+    null,
+    "pets fetched successfully!"
+  );
+  res.status(200).json(response);
 });
 
 exports.getThisPet = asyncWrapper(async (req, res, next) => {
   const petId = req.params.petId;
   const pet = await Pet.find({ _id: petId });
-  res.json({ status: true, pet });
+  const response = new CustomResponse(
+    true,
+    { pet },
+    null,
+    "pet fetched successfully"
+  );
+  res.status(200).json(response);
 });

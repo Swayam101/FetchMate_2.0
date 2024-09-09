@@ -2,8 +2,10 @@
 const CustomResponse = require("../utils/Response");
 
 module.exports = async (error, req, res, next) => {
-
-  if (error.name == "JsonWebTokenError" || error.message=="JsonWebTokenError") {
+  if (
+    error.name == "JsonWebTokenError" ||
+    error.message == "JsonWebTokenError"
+  ) {
     const err = new CustomResponse(
       false,
       null,
@@ -12,7 +14,6 @@ module.exports = async (error, req, res, next) => {
     );
     return res.json(err);
   }
-
 
   if (error.code == 11000) {
     const collection = error.message
@@ -28,25 +29,21 @@ module.exports = async (error, req, res, next) => {
       `${collection} with this ${key} Already Exists`
     );
     return res.json(response);
-    
-  } 
-  if (error.name===("ValidationError")) {
+  }
+  if (error.name === "ValidationError") {
     const feilds = Object.keys(error.errors);
     const validationErrors = [];
     feilds.forEach((value) => {
-      const errMsg=error.errors[value].message.replace("Path"," ").replace("`","").replace("`","")
+      const errMsg = error.errors[value].message
+        .replace("Path", " ")
+        .replace("`", "")
+        .replace("`", "");
       validationErrors.push(`${errMsg}`);
     });
     return res.json(
-      new CustomResponse(
-        false,
-        null,
-        validationErrors,
-        validationErrors[0]
-      )
+      new CustomResponse(false, null, validationErrors, validationErrors[0])
     );
-
   }
   console.log(error.name);
-  res.json(new CustomResponse(false, null,error,error.message));
+  return res.json(new CustomResponse(false, null, error, error.message));
 };

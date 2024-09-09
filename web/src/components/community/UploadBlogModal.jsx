@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import ReactModal from "react-modal";
-import Nehu from "../../assets/nehu.png";
-import axios from "../../utils/axiosConfig";
+import request from "../../services/axios.service";
 import useUserStore from "../../Store/userStore";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -9,32 +8,31 @@ import { toast } from "react-toastify";
 const UploadBlogModal = ({ isModalOpen, setIsModalOpen }) => {
   const titleRef = useRef();
   const contentRef = useRef();
-  const token=useUserStore((state)=>state.jwtToken)
-  const userData=useUserStore((state)=>state.userData)
-  const navigate=useNavigate()
+  const token = useUserStore((state) => state.jwtToken);
+  const userData = useUserStore((state) => state.userData);
+  const navigate = useNavigate();
 
   const submitBlog = () => {
-    axios({
+    request({
       url: "/blog",
       method: "POST",
       data: {
         title: titleRef.current.value,
         content: contentRef.current.value,
       },
-      headers:{
-        Authorization:`Bearer ${token}`
-      }
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     })
       .then((res) => {
         console.log(res);
-        if(!res.data.status) throw new Error(res.data.error[0])
-        setIsModalOpen(false)
-        toast.success("Blog Uploaded Successfully!")
-        navigate(0)
+        if (!res.data.status) throw new Error(res.data.error[0]);
+        setIsModalOpen(false);
+        toast.success("Blog Uploaded Successfully!");
+        navigate(0);
       })
       .catch((err) => {
-
-       toast.error(err.message)
+        toast.error(err.message);
       });
   };
 
@@ -85,7 +83,10 @@ const UploadBlogModal = ({ isModalOpen, setIsModalOpen }) => {
         ></textarea>
         <div>
           {" "}
-          <button onClick={submitBlog} className="border-3 active:scale-90 active:border-white border-black p-2 rounded-xl bg-yellow-400">
+          <button
+            onClick={submitBlog}
+            className="border-3 active:scale-90 active:border-white border-black p-2 rounded-xl bg-yellow-400"
+          >
             Submit
           </button>
         </div>

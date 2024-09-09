@@ -6,56 +6,44 @@ import { GrClose } from "react-icons/gr";
 
 // User-Build Modules
 import useCartStore from "../../Store/cartStore";
-import axios from '../../utils/axiosConfig'
-
-import EmptyCartImage from '../../assets/empty.png'
-import { toast } from "react-toastify";
-
-
-
+import request from "../../services/axios.service";
 
 const Cart = () => {
-  const observer=new IntersectionObserver((entries)=>{
-    entries.forEach((entry)=>{
-      if(entry.isIntersecting) entry.target.classList.add('animate-appear')
-      else entry.target.classList.remove('animate-appear')
-    })
-  })
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) entry.target.classList.add("animate-appear");
+      else entry.target.classList.remove("animate-appear");
+    });
+  });
 
-  const appearers=document.querySelectorAll('.anim')
-  appearers.forEach((el)=>observer.observe(el))
+  const appearers = document.querySelectorAll(".anim");
+  appearers.forEach((el) => observer.observe(el));
 
   const cart = useCartStore((state) => state.cart);
-  const calculateTotal=useCartStore((state)=>state.calculateTotal)
-  const totalAmount=useCartStore((state)=>state.total)
-  const removeFromCart=useCartStore((state)=>state.removeFromCart)
+  const calculateTotal = useCartStore((state) => state.calculateTotal);
+  const totalAmount = useCartStore((state) => state.total);
+  const removeFromCart = useCartStore((state) => state.removeFromCart);
 
-  const [displayCart,setDisplayCart]=useState([])
-  const [total,setTotal]=useState(0)
+  const [displayCart, setDisplayCart] = useState([]);
+  const [total, setTotal] = useState(0);
 
- 
+  useEffect(() => {
+    calculateTotal();
+    setDisplayCart(cart);
+    setTotal(totalAmount);
+  }, [cart, totalAmount, calculateTotal]);
 
- useEffect(()=>{
-  calculateTotal()
-  setDisplayCart(cart)
-  setTotal(totalAmount)
-  
- },[cart,totalAmount,calculateTotal])
+  const handleRemoveItem = (attributes, id) => {
+    if (confirm("Do you Really Want To Remove This Item?"))
+      removeFromCart(attributes, id);
+  };
 
- 
-
- const handleRemoveItem=(attributes,id)=>{
-  if(confirm("Do you Really Want To Remove This Item?")) removeFromCart(attributes,id)
-}
-
- if(total==0) return(
-  <div className="empty-cart h-screen text-4xl font-black  text-cyan-300 flex flex-col items-center pt-20">
-    {"Oops Shopping Cart Is Empty!"}
-  </div>
- )
-
-
-
+  if (total == 0)
+    return (
+      <div className="empty-cart h-screen text-4xl font-black  text-cyan-300 flex flex-col items-center pt-20">
+        {"Oops Shopping Cart Is Empty!"}
+      </div>
+    );
 
   return (
     <div>
@@ -87,16 +75,21 @@ const Cart = () => {
                     className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap"
                   >
                     <div className="sm:flex sm:items-center sm:justify-around">
-                      <div onClick={()=>handleRemoveItem(attributes,attributes._id)}><GrClose className="cursor-pointer" /></div>
+                      <div
+                        onClick={() =>
+                          handleRemoveItem(attributes, attributes._id)
+                        }
+                      >
+                        <GrClose className="cursor-pointer" />
+                      </div>
                       <div className="cart-product-image h-16 w-16 sm:h-32 flex justify-center items-center">
-                      <img
-                      style={{width:"100%",height:"auto"}}
-                        height={0}
-                        width={0}
-                        src={attributes.imageLink}
-                        alt="bagpack_png"
-                       
-                      />
+                        <img
+                          style={{ width: "100%", height: "auto" }}
+                          height={0}
+                          width={0}
+                          src={attributes.imageLink}
+                          alt="bagpack_png"
+                        />
                       </div>
                       <div>{attributes.name}</div>
                     </div>
@@ -108,7 +101,7 @@ const Cart = () => {
               ))}
             </tbody>
           </table>
-         
+
           <div className="p-4 mx-4">
             <div className="my-4">
               <p className="text-2xl font-bold">CART TOTAL</p>
@@ -130,21 +123,18 @@ const Cart = () => {
               </table>
             </div>
             <div className="my-3">
-            
-             <button
-             onClick={async()=>{
-              await axios({
-                url:"/"
-              })
-              // toast.error("Payment Gateway Integration Incomplete!")
-             }}
+              <button
+                onClick={async () => {
+                  await request({
+                    url: "/",
+                  });
+                  // toast.error("Payment Gateway Integration Incomplete!")
+                }}
                 className="border-2 border-yellow-400 hover:bg-yellow-400 hover:text-white transition p-2"
                 type="submit"
               >
-                
                 Proceed To Checkout
               </button>
-            
             </div>
           </div>
         </div>

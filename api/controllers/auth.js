@@ -17,7 +17,7 @@ exports.signUpUser = asyncWrapper(async (req, res, next) => {
     email,
     phoneNumber,
     altNumber,
-    password,
+    password: userPassword,
     petSitter,
     country,
     city,
@@ -33,8 +33,10 @@ exports.signUpUser = asyncWrapper(async (req, res, next) => {
   roles.push("buyer");
   roles.push("petParent");
   if (petSitter) roles.push("petSitter");
-  const hashedPassword = await bcrypt.hash(password, 2);
-  const user = await User.create({
+  console.log("hashed password :  ", userPassword);
+
+  const hashedPassword = await bcrypt.hash(userPassword, 2);
+  const userCreds = await User.create({
     name,
     email,
     mobile: phoneNumber,
@@ -47,7 +49,7 @@ exports.signUpUser = asyncWrapper(async (req, res, next) => {
     DOB,
     state,
   });
-  user.password = "*****";
+  const { password, ...user } = userCreds;
   console.log(user);
   const response = new CustomResponse(true, user, null, "Sign Up Successful!");
   res.status(200).json(response);
@@ -62,9 +64,13 @@ exports.logInUser = asyncWrapper(async (req, res, next) => {
 
   const accessToken = await signAccessToken(user.id);
   const responseUser = await User.findOne({ email }).select(["-password"]);
-
-  // req.user = responseUser;
-  res.json({ accessToken, responseUser,status:true });
+  const response = new CustomResponse(
+    true,
+    { accessToken, responseUser },
+    null,
+    "user login successful"
+  );
+  res.status(200).json(response);
 });
 
 exports.addUserImage = asyncWrapper(async (req, res, next) => {
@@ -81,8 +87,13 @@ exports.addUserImage = asyncWrapper(async (req, res, next) => {
       new: true,
     }
   );
-
-  res.json(newDetails);
+  const response = new CustomResponse(
+    true,
+    { ...newDetails },
+    null,
+    "user image added successfully"
+  );
+  res.status(200).json(response);
 });
 
 exports.becomePetSitter = asyncWrapper(async (req, res, next) => {
@@ -94,36 +105,45 @@ exports.becomePetSitter = asyncWrapper(async (req, res, next) => {
     },
     { new: true }
   );
+  const response = new CustomResponse(
+    true,
+    { ...newUser },
+    null,
+    "successfully registered as pet sitter"
+  );
 
-  res.json({status:true,newUser});
+  res.status(200).json(response);
 });
 
-
-exports.getLocalPetSitter=asyncWrapper(async (req,res,next)=>{
-  const user=req.user._id
-  const result=await User.aggregate([
-    {$match:{_id:user}},
-    {$project:{_id:0,city:1}},
+exports.getLocalPetSitter = asyncWrapper(async (req, res, next) => {
+  const user = req.user._id;
+  const result = await User.aggregate([
+    { $match: { _id: user } },
+    { $project: { _id: 0, city: 1 } },
     {
-      $lookup:{
-        from:'users',
-        localField:'city',
-        foreignField:'city',
-        as:'sameCity'
-      }
+      $lookup: {
+        from: "users",
+        localField: "city",
+        foreignField: "city",
+        as: "sameCity",
+      },
     },
-    {$unwind:'$sameCity'},
+    { $unwind: "$sameCity" },
     {
-      $project:{
-        'sameCity.name':1,
-        'sameCity.city':1,
-        'sameCity.profileUrl':1,
-        'sameCity._id':1
-      }
-    }
-  ])
-  const sliced=result.slice(0,5)
-
-  res.json({status:true,locals:sliced})
-}
-)
+      $project: {
+        "sameCity.name": 1,
+        "sameCity.city": 1,
+        "sameCity.profileUrl": 1,
+        "sameCity._id": 1,
+      },
+    },
+    { $limit: 5 },
+  ]);
+  const response = new CustomResponse(
+    true,
+    { locals },
+    null,
+    "local pet sitters fetched successfully"
+  );
+  res.status(200).json(response);
+});

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { AiOutlinePlus } from "react-icons/ai";
 import LandingImg1 from "../../assets/landingImg1.png";

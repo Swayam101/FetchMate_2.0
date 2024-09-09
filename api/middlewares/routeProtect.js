@@ -5,9 +5,8 @@ const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
-
 // Controller Functions
-module.exports = protectRoute = async (req, res, next) => {
+const protectRoute = async (req, res, next) => {
   let token;
 
   try {
@@ -22,8 +21,8 @@ module.exports = protectRoute = async (req, res, next) => {
         "name",
         "email",
       ]);
-      
-      req.user=user
+
+      req.user = user;
       next();
     }
   } catch (error) {
@@ -33,4 +32,4 @@ module.exports = protectRoute = async (req, res, next) => {
   if (!token) next(new Error("JsonWebTokenError"));
 };
 
-
+module.exports = protectRoute;

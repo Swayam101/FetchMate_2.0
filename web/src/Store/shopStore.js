@@ -21,7 +21,7 @@ const store = (set, get) => ({
   },
   sortProducts: (reverse) => {
     const prods = get().categoryProducts;
-    var sortedProducts = [];
+    let sortedProducts = [];
     if (reverse !== "reverse")
       sortedProducts = [...prods].sort((a, b) => a.name.localeCompare(b.name));
     else {
@@ -31,7 +31,7 @@ const store = (set, get) => ({
   },
   priceFilter: (reverse) => {
     const prods = get().categoryProducts;
-    var filteredProducts = [];
+    let filteredProducts = [];
 
     if (reverse !== "reverse")
       filteredProducts = [...prods].sort((a, b) => a.price - b.price);
@@ -40,12 +40,11 @@ const store = (set, get) => ({
     set((state) => ({ categoryProducts: filteredProducts }));
   },
 
-  budgetFilter:(budget)=>{
-    const prods=get().categoryProducts;
-    const filteredProducts=prods.filter(({price})=>price<=budget)
+  budgetFilter: (budget) => {
+    const prods = get().categoryProducts;
+    const filteredProducts = prods.filter(({ price }) => price <= budget);
     set((state) => ({ categoryProducts: filteredProducts }));
-  }
-
+  },
 });
 
 const useStore = create(store);

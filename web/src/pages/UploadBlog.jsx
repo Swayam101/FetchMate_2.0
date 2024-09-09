@@ -1,6 +1,6 @@
-import React, { useRef, useState, useForm } from "react";
+import React, { useRef, useState } from "react";
 
-// import axios from "axios";
+import request from "../services/axios.service";
 
 const UploadBlog = () => {
   const [productImg, setProductImg] = useState(null);
@@ -19,13 +19,13 @@ const UploadBlog = () => {
     blogData.append("title", titleRef.current.value);
     blogData.append("content", contentRef.current.value);
     blogData.append("image", productImg);
-    const response = await axios({
+    const response = await request({
       method: "post",
       url: "http://localhost:3000/blog",
-      data:blogData,
-      headers:{
-        'Content-Type':'multipart/form-data'
-      }
+      data: blogData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
     });
     console.log(response);
   };
