@@ -1,0 +1,161 @@
+[
+  {
+    "name": "Premium Dog Food",
+    "price": 25.99,
+    "imageLink": "https://example.com/dog-food-image.jpg",
+    "category": "food",
+    "stock": 100
+  },
+  {
+    "name": "Interactive Cat Toy",
+    "price": 12.49,
+    "imageLink": "https://example.com/cat-toy-image.jpg",
+    "category": "toys",
+    "stock": 50
+  },
+  {
+    "name": "Cozy Dog Bed",
+    "price": 34.99,
+    "imageLink": "https://example.com/dog-bed-image.jpg",
+    "category": "beds",
+    "stock": 30
+  },
+  {
+    "name": "Tasty Fish Treats",
+    "price": 8.99,
+    "imageLink": "https://example.com/fish-treats-image.jpg",
+    "category": "food",
+    "stock": 75
+  },
+  {
+    "name": "Bird Perch Stand",
+    "price": 19.99,
+    "imageLink": "https://example.com/bird-perch-image.jpg",
+    "category": "accessories",
+    "stock": 40
+  },
+
+  {
+    "name": "Luxury Cat Collar",
+    "price": 15.99,
+    "imageLink": "https://example.com/cat-collar-image.jpg",
+    "category": "accessories",
+    "stock": 20
+  },
+  {
+    "name": "Soothing Dog Shampoo",
+    "price": 14.79,
+    "imageLink": "https://example.com/dog-shampoo-image.jpg",
+    "category": "skincare",
+    "stock": 60
+  },
+  {
+    "name": "Small Animal Cage",
+    "price": 49.99,
+    "imageLink": "https://example.com/small-animal-cage-image.jpg",
+    "category": "cages",
+    "stock": 15
+  },
+
+  {
+    "name": "Natural Catnip",
+    "price": 6.99,
+    "imageLink": "https://example.com/catnip-image.jpg",
+    "category": "toys",
+    "stock": 90
+  },
+  {
+    "name": "Grooming Brush for Dogs",
+    "price": 11.99,
+    "imageLink": "https://example.com/dog-brush-image.jpg",
+    "category": "grooming",
+    "stock": 35
+  },
+  {
+    "name": "Reptile Heat Lamp",
+    "price": 29.99,
+    "imageLink": "https://example.com/reptile-heat-lamp-image.jpg",
+    "category": "heating",
+    "stock": 25
+  },
+  {
+    "name": "Organic Puppy Food",
+    "price": 29.99,
+    "imageLink": "https://example.com/organic-puppy-food-image.jpg",
+    "category": "food",
+    "stock": 80
+  },
+  {
+    "name": "Feathered Bird Toy Set",
+    "price": 8.99,
+    "imageLink": "https://example.com/bird-toy-set-image.jpg",
+    "category": "toys",
+    "stock": 60
+  },
+  {
+    "name": "Memory Foam Dog Mattress",
+    "price": 49.99,
+    "imageLink": "https://example.com/dog-mattress-image.jpg",
+    "category": "beds",
+    "stock": 25
+  },
+  {
+    "name": "Salmon Flavor Cat Treats",
+    "price": 5.49,
+    "imageLink": "https://example.com/cat-treats-image.jpg",
+    "category": "food",
+    "stock": 70
+  },
+  {
+    "name": "Hamster Exercise Wheel",
+    "price": 12.99,
+    "imageLink": "https://example.com/hamster-wheel-image.jpg",
+    "category": "accessories",
+    "stock": 45
+  },
+
+  {
+    "name": "Designer Dog Bowtie",
+    "price": 14.99,
+    "imageLink": "https://example.com/dog-bowtie-image.jpg",
+    "category": "accessories",
+    "stock": 15
+  },
+  {
+    "name": "Aloe Vera Dog Shampoo",
+    "price": 18.79,
+    "imageLink": "https://example.com/aloe-vera-dog-shampoo-image.jpg",
+    "category": "skincare",
+    "stock": 55
+  },
+  {
+    "name": "Large Rabbit Hutch",
+    "price": 69.99,
+    "imageLink": "https://example.com/rabbit-hutch-image.jpg",
+    "category": "cages",
+    "stock": 10
+  },
+
+  {
+    "name": "Cat Teaser Wand",
+    "price": 7.99,
+    "imageLink": "https://example.com/cat-teaser-wand-image.jpg",
+    "category": "toys",
+    "stock": 85
+  },
+  {
+    "name": "Slicker Brush for Cats",
+    "price": 9.99,
+    "imageLink": "https://example.com/cat-slicker-brush-image.jpg",
+    "category": "grooming",
+    "stock": 40
+  },
+  {
+    "name": "Terrarium Heating Pad",
+    "price": 22.99,
+    "imageLink": "https://example.com/terrarium-heating-pad-image.jpg",
+    "category": "heating",
+    "stock": 30
+  }
+
+]

@@ -1,0 +1,172 @@
+ /* Global CSS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Proza Libre", sans-serif;
+}
+
+html{
+  scroll-behavior: smooth;
+}
+
+
+/* /components/NavBar */
+.nav-bg{
+  background-color: black;
+}
+
+
+.capsule-image-wrapper1 {
+  border-radius: 50%/20%;
+  background: linear-gradient(161.78deg, #ff9f1c 3.43%, #cbf3f0 79.81%);
+  animation: morphing 10s infinite;
+}
+
+.capsule-image-wrapper2 {
+  border-radius: 50%/20%;
+  background: linear-gradient(175.32deg, #2ec4b6 2.64%, #cbf3f0 53.33%);
+  animation: morphing 10s infinite;
+}
+
+.image-shadow {
+  box-shadow: 7px 10px 35px -18px rgba(0, 0, 0, 0.75);
+}
+
+.circle-path {
+  clip-path: circle(50% at 50% 50%);
+}
+@media (min-width: 640px) {
+  .side-capsule {
+    border-radius: 0;
+    border-top-right-radius: 40000000px;
+    border-bottom-right-radius: 400000000px;
+  }
+}
+.side-capsule-shadow {
+  box-shadow: 9px 10px 27px -14px rgba(0, 0, 0, 0.38);
+}
+
+.left-caros,
+.right-caros {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+}
+.left-caros:active,
+.right-caros:active {
+  background-color: yellow;
+}
+
+
+
+.carousel-container > *:nth-child(n) {
+  border-right: 0.1em solid #bfbaba;
+}
+
+.box-shadow-3d {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.tracker-bullets {
+  background-image: url("./assets/trackBullets.png") no-repeat left top;
+}
+
+.triangle {
+  position: relative;
+  background-color: orange;
+  text-align: left;
+  left: 290px;
+  bottom: 130px;
+  z-index: 0;
+}
+.triangle:before,
+.triangle:after {
+  content: "";
+  position: absolute;
+  background-color: inherit;
+}
+.triangle,
+.triangle:before,
+.triangle:after {
+  height: 7em;
+  width: 7em;
+  border-top-right-radius: 30%;
+}
+
+.triangle {
+  transform: rotate(-60deg) skewX(-30deg) scale(1, 0.866);
+}
+.triangle:before {
+  transform: rotate(-135deg) skewX(-45deg) scale(1.414, 0.707)
+    translate(0, -50%);
+}
+.triangle:after {
+  transform: rotate(135deg) skewY(-45deg) scale(0.707, 1.414) translate(50%);
+}
+
+.triangle2 {
+  transform: rotate(90deg);
+  left: 30px;
+  right: 100px;
+  bottom: 318px;
+}
+
+.try-something::before {
+  content: "";
+  height: 97%;
+  width: 100%;
+  top: 4px;
+  border-top-right-radius: 145px;
+  border-top-left-radius: 145px;
+  transform: scale(1.23);
+  background-color: white;
+  position: absolute;
+  z-index: -1;
+}
+
+.services-gradient {
+  background: linear-gradient(
+    227.14deg,
+    rgba(255, 191, 105, 0.106) 24.24%,
+    rgba(255, 221, 175, 0.08) 46.49%,
+    rgba(203, 243, 240, 0.2) 74.07%
+  );
+}
+
+.like-animation {
+  animation-name: like-button;
+  animation-duration: 0.5s;
+}
+
+@keyframes like-button {
+  from {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.community-component-shadow {
+  border-radius: 11px;
+  /* background: linear-gradient(145deg, #f0f0f0, #cacaca); */
+  /* box-shadow: 7px 7px 19px #828282, -7px -7px 19px #ffffff; */
+  box-shadow: 4px 7px 13px -5px rgba(0,0,0,0.27);
+}
+
+
+.cover-image{
+background-image: url('./assets/FETCHMATE LOGO/Secondary Logo/IconNameOrange.svg');
+background-position: center;
+background-repeat: no-repeat;
+}
+
+.empty-cart{
+  background-image: url('./assets/empty.png');
+  background-position: center;
+  background-repeat: no-repeat;
+}
