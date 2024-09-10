@@ -14,14 +14,18 @@ const NavBar = () => {
 
   return (
     <nav
-      className={` bg-white z-50 mynav hidden p-4 px-16 sm:flex sticky items-center top-0 `}
+      className={`w-screen bg-white sm:flex py-4 md:py-6 md:gap-24 gap-8 hidden`}
     >
-      <div className="nav-left sm:flex items-center w-6/12 justify-between">
-        <NavLink to={"/"}>
+      <div className="flex items-center content-center gap-4 md:gap-16">
+        <NavLink className={"h-16 w-20 ml-2 md:ml-4"} to={"/"}>
           {" "}
-          <img src={OrangeLogo} alt="FetchMate Logo" className="h-16 w-16" />
+          <img
+            src={OrangeLogo}
+            alt="FetchMate Logo"
+            className="h-full w-full"
+          />
         </NavLink>
-        <ul className="flex pt-2 basis-4/5 justify-evenly content-center text-base">
+        <ul className="flex justify-evenly text-xs md:text-base gap-4 md:gap-12">
           <li>
             <NavLink
               to={"/"}
@@ -32,7 +36,7 @@ const NavBar = () => {
               Home
             </NavLink>
           </li>
-          <li>
+          <li className="min-w-fit">
             <NavLink
               to={"/pet-sitter"}
               className={({ isActive }) =>
@@ -74,54 +78,54 @@ const NavBar = () => {
           </li>
         </ul>
       </div>
-      <div className="nav-right  w-6/12 flex justify-end">
-        <div className="nav-right-inner w-4/5 pt-2 h-full flex justify-around items-center">
-          <div className="search-input">
-            <AiOutlineSearch className="inline text-xl relative right-2 bottom-1" />
+      <div className="flex">
+        <div className="flex items-center gap-0 md:gap-24">
+          <div className="flex items-center content-center gap-2">
+            <AiOutlineSearch size={20} className="inline text-xl relative" />
             <input
-              className="bg-white h-full p-2 rounded-lg text-lg inline"
+              className="bg-white h-full p-1 md:p-2 rounded-lg text-xs w-12 md:w-fit md:text-lg inline"
               type="search"
               name="search"
               placeholder="Search"
             />
           </div>
-          {isLoggedIn ? (
-            <NavLink to={"/cart"}>
-              <FaCartShopping size={35} />
-            </NavLink>
-          ) : (
-            <Link to="/login">
-              <button
-                title="Login"
-                style={{ marginRight: "4.5%" }}
-                type="button"
-                className="focus:outline-none bg-yellow-400 hover:bg-yellow-500 font-medium rounded-lg text px-4 py-2 dark:focus:ring-yellow-900"
+          <div className="flex gap-0 md:gap-32 items-center">
+            {isLoggedIn ? (
+              <NavLink to={"/cart"}>
+                <FaCartShopping size={35} />
+              </NavLink>
+            ) : (
+              <Link to="/login">
+                <button
+                  title="Login"
+                  type="button"
+                  className="focus:outline-none bg-yellow-400 hover:bg-yellow-500 font-medium rounded-lg text-xs md:text-lg px-2 py-1 md:px-4 md:py-2 dark:focus:ring-yellow-900"
+                >
+                  Login
+                </button>
+              </Link>
+            )}
+            {isLoggedIn ? (
+              <div
+                onClick={() => setMenuState(!menuState)}
+                className="cursor-pointer"
               >
-                Login
-              </button>
-            </Link>
-          )}
-          {isLoggedIn ? (
-            <div
-              onClick={() => setMenuState(!menuState)}
-              className="cursor-pointer"
-            >
-              <div>
-                <FaUserAlt size={30} />
+                <div>
+                  <FaUserAlt size={30} />
+                </div>
+                <AvatarDropDown displayState={menuState} />
               </div>
-              <AvatarDropDown displayState={menuState} />
-            </div>
-          ) : (
-            <Link to="/signup">
-              <button
-                style={{ padding: "1.65% 2.5%" }}
-                type="button"
-                className="border-2 text-cyan-400 border-cyan-400 font-medium rounded-lg text-sm text-center border-b-4 active:border-b-2"
-              >
-                Get Started
-              </button>
-            </Link>
-          )}
+            ) : (
+              <Link to="/signup">
+                <button
+                  type="button"
+                  className="border-2 min-w-fit text-cyan-400 border-cyan-400 font-medium rounded-lg text-xs md:text-lg text-center border-b-4 active:border-b-2 px-2 py-1 md:px-4 md:py-2"
+                >
+                  Get Started
+                </button>
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </nav>

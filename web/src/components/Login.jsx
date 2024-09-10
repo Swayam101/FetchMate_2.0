@@ -24,8 +24,12 @@ const Login = () => {
           password: passwordRef.current.value,
         },
       });
+      console.log("login response extra : ", response);
 
-      if (!response.status) return toast.error(response.message);
+      if (!response.status)
+        return toast.error(response.message, {
+          toastId: "login-error-message",
+        });
 
       setToken(response.data.accessToken);
       setUserData(response.data.responseUser);
@@ -107,18 +111,6 @@ const Login = () => {
                   required=""
                 />
               </div>
-              {/* Remember Me check Box */}
-              {/* <div className="flex items-center justify-between"> */}
-
-              {/*Forget Password  */}
-              {/* <a
-                    href="#"
-                    className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
-                  >
-                    Forgot password?
-                  </a>
-                </div> */}
-              {/* Submit Button */}
               <button
                 onClick={loginUser}
                 className="w-full text-white bg-yellow-300 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-bold rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"

@@ -1,15 +1,17 @@
-import "./App.css";
-import Footer from "./components/Footer";
+import { Outlet } from "react-router-dom";
 
 import "react-toastify/dist/ReactToastify.css";
+import "./App.css";
 
+import Footer from "./components/Footer";
 import NavBar from "./components/NavBar";
+import MobileNavbar from "./components/MobileNavbar";
 
-import { Outlet } from "react-router-dom";
 function App() {
   return (
     <>
       <NavBar />
+      <MobileNavbar />
       <Outlet />
       <Footer />
     </>
