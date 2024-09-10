@@ -1,4 +1,4 @@
- /* Global CSS */
+/* Global CSS */
 * {
   margin: 0;
   padding: 0;
@@ -6,16 +6,21 @@
   font-family: "Proza Libre", sans-serif;
 }
 
-html{
+html {
   scroll-behavior: smooth;
 }
 
-
-/* /components/NavBar */
-.nav-bg{
-  background-color: black;
+.overlay {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 1s, visibility 0s 1s;
 }
 
+.overlay.open {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 1s;
+}
 
 .capsule-image-wrapper1 {
   border-radius: 50%/20%;
@@ -57,8 +62,6 @@ html{
 .right-caros:active {
   background-color: yellow;
 }
-
-
 
 .carousel-container > *:nth-child(n) {
   border-right: 0.1em solid #bfbaba;
@@ -155,18 +158,17 @@ html{
   border-radius: 11px;
   /* background: linear-gradient(145deg, #f0f0f0, #cacaca); */
   /* box-shadow: 7px 7px 19px #828282, -7px -7px 19px #ffffff; */
-  box-shadow: 4px 7px 13px -5px rgba(0,0,0,0.27);
+  box-shadow: 4px 7px 13px -5px rgba(0, 0, 0, 0.27);
 }
 
-
-.cover-image{
-background-image: url('./assets/FETCHMATE LOGO/Secondary Logo/IconNameOrange.svg');
-background-position: center;
-background-repeat: no-repeat;
+.cover-image {
+  background-image: url("./assets/FETCHMATE LOGO/Secondary Logo/IconNameOrange.svg");
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-.empty-cart{
-  background-image: url('./assets/empty.png');
+.empty-cart {
+  background-image: url("./assets/empty.png");
   background-position: center;
   background-repeat: no-repeat;
 }

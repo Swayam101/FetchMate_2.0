@@ -1,12 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
-
-import UploadBlog from "./pages/UploadBlog.jsx";
-
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import "./index.css";
+
+import App from "./App.jsx";
+import UploadBlog from "./pages/UploadBlog.jsx";
 import Home from "./pages/Home/Home.jsx";
 import PetSitter from "./pages/PetSitter/PetSitter.jsx";
 import Services from "./pages/Services/Services.jsx";
@@ -16,11 +15,10 @@ import Login from "./components/Login.jsx";
 import SignUp from "./components/SignUp.jsx";
 import Cart from "./pages/Cart/Cart.jsx";
 
-import { ToastContainer } from "react-toastify";
-
 import Profile from "./components/UserProfile.jsx";
 import Protected from "./components/Protected.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
+import { ToastContainer } from "react-toastify";
 
 const router = createBrowserRouter([
   {
@@ -54,7 +52,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ToastContainer />
     <RouterProvider router={router} />
+    <ToastContainer />
   </React.StrictMode>
 );

@@ -2,40 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
-
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Proza Libre", sans-serif;
+}
 
 .fade-in-down {
-    animation: fade-in-down 2s ease infinite;
+  animation: fade-in-down 2s ease infinite;
+}
+@keyframes fade-in-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
   }
-  @keyframes fade-in-down {
-    0% {
-      opacity: 0;
-      transform: translateY(-20px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .fade-in-left {
-    animation: fade-in-left 2s ease infinite;
-  }
-  @keyframes fade-in-left {
-    0% {
-      opacity: 0;
-      transform: translateX(-20px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
+}
 
-  .fade-in {
-    animation: fade-in 2s linear infinite;
+.fade-in-left {
+  animation: fade-in-left 2s ease infinite;
+}
+@keyframes fade-in-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
   }
-  @keyframes fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
   }
+}
+
+.fade-in {
+  animation: fade-in 2s linear infinite;
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
