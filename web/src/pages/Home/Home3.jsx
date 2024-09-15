@@ -1,73 +1,42 @@
 import React from "react";
 
-import Feature1 from "../../assets/petSitter.jpg";
-import Feature2 from "../../assets/petPaws.jpg";
-import Feature3 from '../../assets/petProducts.jpg'
+import Feature1 from "../../assets/how-we-work-1.avif";
+import Feature2 from "../../assets/how-we-work-2.webp";
+import Feature3 from "../../assets/how-we-work-3.webp";
+import HowWeWorkCard from "../../components/HowWeWorkCard";
 
 const Home3 = () => {
   return (
-    <div className="bg-[#fff6e9] pt-12 pb-32 sm:px-32 ">
-      <div className="text-center text-2xl font-bold text-[#ff9f1c] pb-10">
+    <div className="px-8 flex flex-col sm:gap-8 gap-4 items-center sm:block sm:mt-0 mt-16">
+      <div className="text-center text-2xl sm:my-12 my-4 font-bold text-[#ff9f1c]">
         How We Work
       </div>
-      <div className="flex gap-10 flex-col sm:flex-row items-center ">
-        <div
-          style={{ width: "70%", height: "60%" }}
-          className=" grid gap-2 justify-around flex-1"
-        >
-          <div className="col-span-10 row-span-1">
-            <img className="" src={Feature1} alt="" />
-          </div>
-          <div className="col-span-1 pl-6 text-3xl font-bold text-[#ff9f1c]">
-            1
-          </div>
-          <div className="col-span-9  flex justify-evenly font-bold">
-            We on board & verify the Pet Sitters
-          </div>
-          <div className="col-span-1 "></div>
-          <div className="break-words pl-2 col-span-9 row-span-1">
-            This verification is performed using AI on the basis of
-            documentation provided by the pet sitter
-          </div>
-        </div>
-        <div
-          style={{ width: "70%", height: "60%" }}
-          className=" grid gap-2 justify-around flex-1"
-        >
-          <div className="col-span-10 row-span-1">
-            <img className="h-72" src={Feature2} alt="" />
-          </div>
-          <div className="col-span-1 pl-6 text-3xl font-bold text-[#ff9f1c]">
-            2
-          </div>
-          <div className="anim col-span-9  flex justify-evenly font-bold">
-            Building a Trusted Network of Pet Enthusiasts
-          </div>
-          <div className="col-span-1 "></div>
-          <div className="anim break-words pl-2 col-span-9 row-span-1">
-            In our community, authenticity reigns. Join us, where trust and
-            shared passion for pets create lasting connections.
-          </div>
-        </div>
-        <div
-          style={{ width: "70%", height: "60%" }}
-          className=" grid gap-2 justify-around flex-1"
-        >
-          <div className="col-span-10 row-span-1">
-            <img className="" src={Feature3} alt="" />
-          </div>
-          <div className="col-span-1 pl-6 text-3xl font-bold text-[#ff9f1c]">
-            3
-          </div>
-          <div className="col-span-9  flex justify-evenly font-bold">
-            Curated Pet Products, Quality Assured
-          </div>
-          <div className="col-span-1 "></div>
-          <div className="break-words pl-2 col-span-9 row-span-1">
-            Explore joy in simplicity. Our carefully curated pet products
-            guarantee quality for an elevated pet experience.
-          </div>
-        </div>
+      <div className="flex flex-col gap-12 sm:gap-0 sm:flex-row sm:justify-evenly sm:items-center ">
+        <HowWeWorkCard
+          image={Feature1}
+          heading={" We on board & verify the Pet Sitters"}
+          description={
+            "This verification is performed using AI on the basis of documentation provided by the pet sitter"
+          }
+          serialNo={"1"}
+        />
+        <HowWeWorkCard
+          serialNo={"2"}
+          image={Feature2}
+          heading={"Building a Trusted Network of Pet Enthusiasts"}
+          description={
+            "In our community, authenticity reigns. Join us, where trust and shared passion for pets create lasting connections."
+          }
+        />
+
+        <HowWeWorkCard
+          image={Feature3}
+          heading={"Curated Pet Products, Quality Assured"}
+          description={
+            "Explore joy in simplicity. Our carefully curated pet products guarantee quality for an elevated pet experience."
+          }
+          serialNo={"3"}
+        />
       </div>
     </div>
   );

@@ -7,7 +7,6 @@ import useUserStore from "../Store/userStore";
 import AvatarDropDown from "./AvatarDropDown";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdClose } from "react-icons/io";
-import "../index.css";
 
 const MobileNavbar = () => {
   const isLoggedIn = useUserStore((state) => state.isLoggedIn);
@@ -20,11 +19,15 @@ const MobileNavbar = () => {
 
   return (
     <nav
-      className={`sm:hidden flex flex-col max-w-screen mb-4 ${
+      className={`sm:hidden flex flex-col max-w-screen mb-2 ${
         menuState ?? "fade-in-left"
       }`}
     >
-      <div className="flex flex-col w-full">
+      <div
+        className={`flex ${
+          menuState ? "flex-col" : "flex-row-reverse justify-between px-8"
+        } w-full`}
+      >
         {menuState ? (
           <IoMdClose
             size={30}
@@ -40,17 +43,23 @@ const MobileNavbar = () => {
             onClick={handleHamburgerClick}
           />
         )}
-        <div className="flex justify-end">
-          <NavLink
-            className={`w-screen mt-0 ${!menuState && "hidden"}`}
-            to={"/"}
-          >
+        <div className={`flex items-center justify-center`}>
+          <NavLink to={"/"}>
             <img
               src={OrangeLogo}
               alt="FetchMate Logo"
-              className="h-auto w-40 mx-auto py-4"
+              className={`${
+                menuState ? "h-auto w-40 mx-auto py-4" : "h-auto w-12"
+              }`}
             />
           </NavLink>
+          <div
+            className={`${
+              menuState ? "hidden" : "font-black text-xl text-center"
+            }`}
+          >
+            FetchMate
+          </div>
         </div>
         <ul
           className={`${
@@ -60,6 +69,7 @@ const MobileNavbar = () => {
           <li className="mt-2">
             <NavLink
               to={"/"}
+              onClick={handleHamburgerClick}
               className={({ isActive }) =>
                 `${
                   isActive ? "text-yellow-400" : "text-black"
@@ -72,6 +82,7 @@ const MobileNavbar = () => {
           <li className="mt-2">
             <NavLink
               to={"/pet-sitter"}
+              onClick={handleHamburgerClick}
               className={({ isActive }) =>
                 `${
                   isActive ? "text-yellow-400" : "text-black"
@@ -84,6 +95,7 @@ const MobileNavbar = () => {
           <li className="mt-2">
             <NavLink
               to={"/services"}
+              onClick={handleHamburgerClick}
               className={({ isActive }) =>
                 `${
                   isActive ? "text-yellow-400" : "text-black"
@@ -96,6 +108,7 @@ const MobileNavbar = () => {
           <li className="mt-2">
             <NavLink
               to={"/shop"}
+              onClick={handleHamburgerClick}
               className={({ isActive }) =>
                 `${
                   isActive ? "text-yellow-400" : ""
@@ -105,18 +118,7 @@ const MobileNavbar = () => {
               Shop
             </NavLink>
           </li>
-          <li className="mt-2">
-            <NavLink
-              to={"/community"}
-              className={({ isActive }) =>
-                `${
-                  isActive ? "text-yellow-400" : ""
-                } border-b-black border-b-[1px]`
-              }
-            >
-              Community
-            </NavLink>
-          </li>
+          <li className="py-6"></li>
         </ul>
       </div>
       <div className={`${!menuState ? "hidden" : "flex"} flex-col w-full mt-4`}>

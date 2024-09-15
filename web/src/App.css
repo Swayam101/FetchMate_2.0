@@ -41,13 +41,10 @@ html {
 .circle-path {
   clip-path: circle(50% at 50% 50%);
 }
-@media (min-width: 640px) {
-  .side-capsule {
-    border-radius: 0;
-    border-top-right-radius: 40000000px;
-    border-bottom-right-radius: 400000000px;
-  }
+.half-pill-container-border {
+  border-radius: 0 500px 500px 0; /* Right side rounded */
 }
+
 .side-capsule-shadow {
   box-shadow: 9px 10px 27px -14px rgba(0, 0, 0, 0.38);
 }

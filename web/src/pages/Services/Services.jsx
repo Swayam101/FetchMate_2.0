@@ -29,8 +29,8 @@ const Services = () => {
         <div className="text-center text-[#FF9F1C] font-bold text-2xl pt-10 pb-12">
           Fetchmate Provided Services
         </div>
-        <div className="flex flex-col items-center gap-y-14 w-full">
-          <div className="flex gap-x-16">
+        <div className="flex flex-col items-center gap-8 sm:gap-14 w-full">
+          <div className="flex sm:flex-row flex-col sm:gap-16 gap-8">
             <ServicesCard
               name={"Pet Day Care"}
               image={ServiceThumb1}
@@ -47,7 +47,7 @@ const Services = () => {
               description={description}
             />
           </div>
-          <div className="flex gap-x-16">
+          <div className="flex gap-8 sm:gap-16 sm:flex-row flex-col">
             <ServicesCard
               name={"Bird Watching"}
               image={ServiceThumb4}
@@ -66,7 +66,6 @@ const Services = () => {
           </div>
         </div>
       </div>
-      <Services2 />
     </div>
   );
 };

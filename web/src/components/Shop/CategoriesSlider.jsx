@@ -1,45 +1,83 @@
+import React, { useState } from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { FaCookieBite, FaBed } from "react-icons/fa";
+import { TbHorseToy } from "react-icons/tb";
+import { GiGemNecklace, GiBirdCage, GiComb } from "react-icons/gi";
+import { FaBottleDroplet } from "react-icons/fa6";
+import useStore from "../../Store/shopStore";
 
-import React, { useState } from 'react'
-import categories from './categoriesData'
-import {GiSchoolBag} from 'react-icons/gi'
-import {TbBottle} from 'react-icons/tb'
-import useStore from '../../Store/shopStore'
+const categories = [
+  { category: "food", icon: <FaCookieBite size={60} /> },
+  { category: "toys", icon: <TbHorseToy size={60} /> },
+  { category: "beds", icon: <FaBed size={60} /> },
+  { category: "accessories", icon: <GiGemNecklace size={60} /> },
+  { category: "skincare", icon: <FaBottleDroplet size={60} /> },
+  { category: "cages", icon: <GiBirdCage size={60} /> },
+  { category: "grooming", icon: <GiComb size={60} /> },
+];
 
-const getCategoryIcon=(category)=>{
-  switch (category) {
-    case "bag":return <GiSchoolBag size={60}/>
-      break;
-    case "sipper":return <TbBottle size={60}/>
-      break;
-  }
-}
+const sliderSettings = {
+  dots: true,
+  infinite: false,
+  speed: 500,
+  slidesToShow: 4,
+  slidesToScroll: 4,
+  initialSlide: 0,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        infinite: true,
+        dots: true,
+      },
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        initialSlide: 2,
+      },
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+      },
+    },
+  ],
+};
 
 const CategoriesSlider = () => {
   const filterProducts = useStore((state) => state.applyCategory);
-  const products=useStore((state)=>state.categoryProducts)
   const [selected, setSelected] = useState("0");
 
-  const handleClick =(category, num) => {
-   filterProducts(category);
-    setSelected(num)
-  }
+  const handleClick = (category, num) => {
+    filterProducts(category);
+    setSelected(num);
+  };
 
   return (
-    <div style={{scrollbarWidth:"none"}} className='visible p-5 col-span-2 sm:hidden flex'>
-      <h1>Select Category</h1>
-      <div style={{scrollbarWidth:"none"}} className='overflow-y-scroll flex'>
-      {categories.map(({category},index)=>
-        (<span onClick={()=>handleClick(category,index)} key={index} className={`text-center ${
-          selected == index ? "border-4 rounded" : ""
-        }`}>
-          {/* <GiSchoolBag size={60}/> */}
-          {getCategoryIcon(category)}
-          <span className='text-center uppercase'>{category}</span>
-        </span>)
-      )}
-      </div>
-    </div>
-  )
-}
+    <Slider {...sliderSettings} className="sm:hidden mb-4">
+      {categories.map(({ category, icon }, index) => (
+        <div
+          onClick={() => handleClick(category, index)}
+          key={index}
+          className={`text-center ${
+            selected == index ? "border-4 rounded" : ""
+          }`}
+        >
+          <div className="flex justify-center"> {icon}</div>
+          <span className="w-full text-center uppercase">{category}</span>
+        </div>
+      ))}
+    </Slider>
+  );
+};
 
 export default CategoriesSlider;

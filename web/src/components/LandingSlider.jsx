@@ -1,59 +1,56 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import Slider from "react-slick";
+import HomePageProductCard from "../components/HomePageProductCard";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-import ProductCard from "./ProductCard";
-import products from "../DummyData/products";
-
-import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
-import { Link } from "react-router-dom";
+const sliderSettings = {
+  dots: true,
+  infinite: false,
+  speed: 500,
+  slidesToShow: 4,
+  slidesToScroll: 4,
+  initialSlide: 0,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+        infinite: true,
+        dots: true,
+      },
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        initialSlide: 2,
+      },
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+  ],
+};
 
 const LandingSlider = () => {
-  const [box, setBox] = useState(null);
-
-  useEffect(() => {
-    const box = document.querySelector(".carousel-container");
-    setBox(box);
-  }, []);
-
-  const carouselPrev = () => {
-    let width = box.offsetWidth;
-    box.scrollLeft = box.scrollLeft - width;
-    console.log(`Width:${width}`);
-    console.log(`Scroll Left:${box.scrollLeft}`);
-  };
-
-  const carouselNext = () => {
-    let width = box.offsetWidth;
-    box.scrollLeft = box.scrollLeft + width;
-    console.log(`Width:${width}`);
-    console.log(`Scroll Left:${box.scrollLeft}`);
-  };
-
   return (
-    <div className="flex items-center justify-around cursor-pointer">
-      <AiOutlineLeft
-        className="left-caros text-gray-400 hover:bg-black text-2xl"
-        onClick={carouselPrev}
-      />
-      <Link className="w-full overflow-x-hidden" to={"/shop"}>
-        <div
-          id="carousel-container"
-          className="flex carousel-container scroll-smooth w-full overflow-x-hidden"
-        >
-          {products.map(({ name, price, weight, imageLink }, index) => (
-            <ProductCard
-              key={"product-card-" + index}
-              name={name}
-              price={price}
-              weight={weight}
-              image={imageLink}
-            />
-          ))}
-        </div>
-      </Link>
-      <AiOutlineRight
-        className="text-gray-400 cursor-pointer hover:bg-black right-caros text-5xl"
-        onClick={carouselNext}
-      />
+    <div className="px-20 mb-4">
+      <Slider autoPlay {...sliderSettings}>
+        <HomePageProductCard />
+        <HomePageProductCard />
+        <HomePageProductCard />
+        <HomePageProductCard />
+        <HomePageProductCard />
+        <HomePageProductCard />
+        <HomePageProductCard />
+      </Slider>
     </div>
   );
 };
