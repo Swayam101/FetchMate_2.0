@@ -22,12 +22,13 @@ const Shop = () => {
   return (
     <div className="bg-white text-black">
       <div className="shop-main-wrapper h-fit sm:h-4/5 sm:p-0 sm:px-10 ">
-        <div className="grid grid-cols-2 sm:grid-cols-4 ">
-          <CategoriesSlider />
+        <div className="grid grid-cols-1 sm:grid-cols-4 ">
+          <div className="sm:hidden w-full h-full">
+            <CategoriesSlider />
+          </div>
           <ProductsList />
           <aside className="hidden sm:block col-span-1 p-3">
             <CategoriesAside />
-
             <div className="filter-by-price mb-16 grid grid-cols-2">
               <h3 className="mb-4 gap-x-8 col-span-2 text-xl font-anton tracking-wide text-left mt-16">
                 Filter By Price
@@ -57,23 +58,6 @@ const Shop = () => {
                 </label>
               </div>
             </div>
-            {/* <div className="product-tags">
-              <h3 className="mb-4 gap-x-8 col-span-2 text-2xl font-anton tracking-wide text-left mt-16">
-                PRODUCT TAGS
-              </h3>
-              <div className="product-tags-list flex flex-wrap">
-                {productTags.map((element, index) => {
-                  return (
-                    <button
-                      key={index}
-                      className="m-1 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
-                    >
-                      {element}
-                    </button>
-                  );
-                })}
-              </div>
-            </div> */}
           </aside>
         </div>
       </div>

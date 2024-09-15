@@ -66,16 +66,6 @@ const NavBar = () => {
               Shop
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to={"/community"}
-              className={({ isActive }) =>
-                `${isActive ? "text-yellow-400" : ""}`
-              }
-            >
-              Community
-            </NavLink>
-          </li>
         </ul>
       </div>
       <div className="flex">

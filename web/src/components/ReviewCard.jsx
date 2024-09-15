@@ -2,21 +2,30 @@ import React from "react";
 
 // import ReviewImg from "../assets/reviewImg.png";
 
-const ReviewCard = ({image, parentImage,sitterName,serviceName,review,petParent}) => {
+const ReviewCard = ({
+  image,
+  parentImage,
+  sitterName,
+  serviceName,
+  review,
+  petParent,
+}) => {
   return (
-    <div className="review-card items-center flex w-2/5 flex-shrink-0 ">
-      <img
-        style={{ borderRadius: "50%/20%" }}
-        src={image}
-        alt="pet sitter's photo"
-        className="rounded-ss-3xl w-56 h-80"
-      />
-      <div className="flex flex-col p-10 h-96 justify-around ">
-        <div className="text-xl font-bold">{sitterName}</div>
-        <div className="text-sm font-bold text-gray-500">
+    <div className="grid grid-cols-2 sm:gap-4">
+      <div className="flex flex-col justify-center">
+        {" "}
+        <img
+          src={image}
+          alt="pet sitter's"
+          className="col-span-1 rounded-[50%/20%] sm:h-full h-96"
+        />
+      </div>
+      <div className="flex flex-col gap-2 h-auto px-2 py-4 justify-around">
+        <div className="text-lg font-bold">{sitterName}</div>
+        <div className="text-xs font-bold text-gray-500">
           Service : {serviceName}
         </div>
-        <div className="font-semibold">
+        <div className="font-semibold sm:text-lg text-xs">
           Pet Sitter was extremely friendly and loving to my bruno. he was
           extremely careful and updated about my dog by himself. i will
           definitely recommed pet sitter if you are from my place and looking

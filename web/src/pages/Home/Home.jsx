@@ -9,7 +9,7 @@ import Home5 from "./Home5";
 const Home = () => {
   return (
     // Home Container
-    <div className=" home-wrapper flex flex-col sm:pt-20 sm:gap-28 gap-12">
+    <div className="flex flex-col sm:gap-24 sm:mt-16 mt-8">
       {/* Home Part 1 */}
       <Home1 />
 
