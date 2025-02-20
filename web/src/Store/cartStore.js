@@ -8,10 +8,10 @@ const store = (set, get) => ({
   calculateTotal: () => {
     const currentCart = [...get().cart];
     const total = currentCart.reduce(
-      (sum, product) => (sum += product.qty * product.price),
+      (sum, product) => sum + product.qty * product.price,
       0
     );
-    set((state) => ({ cart: get().cart, total }));
+    set((state) => ({ cart: get().cart, total: parseFloat(total).toFixed(2) }));
   },
   removeFromCart: (attributes, id) => {
     const currentCart = [...get().cart];
@@ -53,6 +53,7 @@ const store = (set, get) => ({
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
+      toastId: "add-item-notif",
     });
   },
 });

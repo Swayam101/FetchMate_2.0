@@ -117,7 +117,7 @@ exports.becomePetSitter = asyncWrapper(async (req, res, next) => {
 
 exports.getLocalPetSitter = asyncWrapper(async (req, res, next) => {
   const user = req.user._id;
-  const result = await User.aggregate([
+  const locals = await User.aggregate([
     { $match: { _id: user } },
     { $project: { _id: 0, city: 1 } },
     {

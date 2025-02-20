@@ -42,8 +42,8 @@ const Home1 = () => {
               src={BlackDogThumb}
               alt=""
             />
-            <div className="inline-block bg-yellow-300 px-2 py-2 rounded-full ">
-              <AiOutlinePlus size={35} />
+            <div className="inline-block bg-yellow-300 px-2 py-2 rounded-full border-3 border-white ring-white">
+              <AiOutlinePlus className="ring-white" size={35} />
             </div>
           </div>
           <div className="sm:text-xl">We are a growing community of 500+</div>
@@ -56,7 +56,7 @@ const Home1 = () => {
         >
           <img
             src={LandingImg1}
-            alt=""
+            alt="a happy pet parent"
             className=""
             title="a happy pet parent"
           />
@@ -68,7 +68,7 @@ const Home1 = () => {
           <img
             style={{ padding: "35% 0% 0% 0%" }}
             src={LandingImg2}
-            alt=""
+            alt="another happy pet parent"
             className="h-auto w-full"
           />
         </div>

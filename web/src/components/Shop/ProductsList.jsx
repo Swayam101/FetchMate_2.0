@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import useStore from "../../Store/shopStore";
-import useCartStore from "../../Store/cartStore";
 import Pagination from "./Pagination";
 
 const ProductsList = () => {

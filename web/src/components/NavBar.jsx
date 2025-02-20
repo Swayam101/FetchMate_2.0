@@ -14,18 +14,14 @@ const NavBar = () => {
 
   return (
     <nav
-      className={`w-screen bg-white sm:flex py-4 md:py-6 md:gap-24 gap-8 hidden`}
+      className={`w-screen sm:flex py-4 md:py-6  sm:gap-24 gap-8 hidden justify-evenly`}
     >
-      <div className="flex items-center content-center gap-4 md:gap-16">
-        <NavLink className={"h-16 w-20 ml-2 md:ml-4"} to={"/"}>
-          {" "}
-          <img
-            src={OrangeLogo}
-            alt="FetchMate Logo"
-            className="h-full w-full"
-          />
-        </NavLink>
-        <ul className="flex justify-evenly text-xs md:text-base gap-4 md:gap-12">
+      <NavLink className={"h-16 w-20 ml-2 md:ml-4 "} to={"/"}>
+        {" "}
+        <img src={OrangeLogo} alt="FetchMate Logo" className="h-full w-full" />
+      </NavLink>
+      <div className="flex basis-2/4 items-center content-center gap-4 sm:gap-16 ">
+        <ul className="flex justify-evenly text-xs md:text-base gap-4 sm:gap-12">
           <li>
             <NavLink
               to={"/"}
@@ -68,55 +64,42 @@ const NavBar = () => {
           </li>
         </ul>
       </div>
-      <div className="flex">
-        <div className="flex items-center gap-0 md:gap-24">
-          <div className="flex items-center content-center gap-2">
-            <AiOutlineSearch size={20} className="inline text-xl relative" />
-            <input
-              className="bg-white h-full p-1 md:p-2 rounded-lg text-xs w-12 md:w-fit md:text-lg inline"
-              type="search"
-              name="search"
-              placeholder="Search"
-            />
+      <div className="flex gap-0 sm:gap-32 items-center">
+        {isLoggedIn ? (
+          <NavLink className={"flex items-center"} to={"/cart"}>
+            <FaCartShopping size={35} />
+          </NavLink>
+        ) : (
+          <Link to="/login">
+            <button
+              title="Login"
+              type="button"
+              className="focus:outline-none bg-yellow-400 hover:bg-yellow-500 font-medium rounded-lg text-xs md:text-lg px-2 py-1 md:px-4 md:py-2 dark:focus:ring-yellow-900"
+            >
+              Login
+            </button>
+          </Link>
+        )}
+        {isLoggedIn ? (
+          <div
+            onClick={() => setMenuState(!menuState)}
+            className="cursor-pointer"
+          >
+            <div>
+              <FaUserAlt size={30} />
+            </div>
+            <AvatarDropDown displayState={menuState} />
           </div>
-          <div className="flex gap-0 md:gap-32 items-center">
-            {isLoggedIn ? (
-              <NavLink to={"/cart"}>
-                <FaCartShopping size={35} />
-              </NavLink>
-            ) : (
-              <Link to="/login">
-                <button
-                  title="Login"
-                  type="button"
-                  className="focus:outline-none bg-yellow-400 hover:bg-yellow-500 font-medium rounded-lg text-xs md:text-lg px-2 py-1 md:px-4 md:py-2 dark:focus:ring-yellow-900"
-                >
-                  Login
-                </button>
-              </Link>
-            )}
-            {isLoggedIn ? (
-              <div
-                onClick={() => setMenuState(!menuState)}
-                className="cursor-pointer"
-              >
-                <div>
-                  <FaUserAlt size={30} />
-                </div>
-                <AvatarDropDown displayState={menuState} />
-              </div>
-            ) : (
-              <Link to="/signup">
-                <button
-                  type="button"
-                  className="border-2 min-w-fit text-cyan-400 border-cyan-400 font-medium rounded-lg text-xs md:text-lg text-center border-b-4 active:border-b-2 px-2 py-1 md:px-4 md:py-2"
-                >
-                  Get Started
-                </button>
-              </Link>
-            )}
-          </div>
-        </div>
+        ) : (
+          <Link to="/signup">
+            <button
+              type="button"
+              className="border-2 min-w-fit text-cyan-400 border-cyan-400 font-medium rounded-lg text-xs md:text-lg text-center border-b-4 active:border-b-2 px-2 py-1 md:px-4 md:py-2"
+            >
+              Get Started
+            </button>
+          </Link>
+        )}
       </div>
     </nav>
   );

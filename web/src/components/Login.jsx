@@ -1,17 +1,28 @@
+import { useEffect, useRef, useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import OrangeIconNameLogo from "../assets/FETCHMATE LOGO/Secondary Logo/IconNameOrange.svg";
-
-import request from "../services/axios.service";
-import { useRef } from "react";
 import { toast } from "react-toastify";
+import request from "../services/axios.service";
 import useUserStore from "../Store/userStore";
+import OrangeIconNameLogo from "../assets/FETCHMATE LOGO/Secondary Logo/IconNameOrange.svg";
+import { FaEye } from "react-icons/fa6";
 
 const Login = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
+  const navigate = useNavigate();
+
   const setToken = useUserStore((state) => state.setJwtToken);
   const setUserData = useUserStore((state) => state.setUserData);
-  const navigate = useNavigate();
+  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
+
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate(-1);
+    }
+    return () => {};
+  }, []);
 
   const loginUser = async (e) => {
     e.preventDefault();
@@ -94,21 +105,28 @@ const Login = () => {
                   required=""
                 />
               </div>
-              <div>
-                <label
-                  htmlFor="password"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >
-                  Password
-                </label>
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  ref={passwordRef}
-                  placeholder="••••••••"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required=""
+              <div style={{ display: "flex", position: "relative" }}>
+                <div className="w-full">
+                  <label
+                    htmlFor="password"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Password
+                  </label>
+                  <input
+                    type={isPasswordVisible ? "text" : "password"}
+                    name="password"
+                    id="password"
+                    ref={passwordRef}
+                    placeholder="••••••••"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required=""
+                  />
+                </div>
+                <FaEye
+                  onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+                  size={25}
+                  className="absolute top-9 right-2 cursor-pointer"
                 />
               </div>
               <button

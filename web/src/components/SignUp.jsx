@@ -1,11 +1,16 @@
-import BlueLogo from "../assets/FETCHMATE LOGO/BlueLogo.svg";
+import { useEffect, useState } from "react";
+
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { toast } from "react-toastify";
+import useUserStore from "../Store/userStore";
 
 import request from "../services/axios.service";
-import { toast } from "react-toastify";
+
+import BlueLogo from "../assets/FETCHMATE LOGO/BlueLogo.svg";
+import { FaEye } from "react-icons/fa6";
 
 const SignUp = () => {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [formState, setFormState] = useState({
     name: "",
     email: "",
@@ -19,7 +24,16 @@ const SignUp = () => {
     password: "",
     terms: "",
   });
+
   const navigate = useNavigate();
+  const isLoggedIn = useUserStore((state) => state.isLoggedIn);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate(-1);
+    }
+    return () => {};
+  }, []);
 
   const submitForm = async (e) => {
     e.preventDefault();
@@ -29,11 +43,9 @@ const SignUp = () => {
         data: formState,
         method: "POST",
       });
-      console.log("singup response : ", response);
-
       if (!response.status) throw new Error(response.message);
       navigate("/login");
-      toast.success("Sign Up Successful", {
+      return toast.success("Sign Up Successful", {
         position: "top-center",
         autoClose: 1500,
         hideProgressBar: false,
@@ -43,9 +55,6 @@ const SignUp = () => {
         progress: undefined,
         theme: "light",
       });
-      // if(response.data.message=="Please Accept The Terms And Conditions")
-      // if(response.data.message=="Validation Error Occured!") throw new Error(response.data.error[0])
-      // if(response.data.error.code==11000) throw new Error(response.data.message)
     } catch (error) {
       toast.error(error.message, {
         position: "top-center",
@@ -72,8 +81,6 @@ const SignUp = () => {
   return (
     <div className="flex sm:flex-row-reverse flex-col-reverse justify-center">
       <section className="flex flex-col justify-center items-center basis-2/4">
-        {/* <div className="bg-gray-100 sm:px-12 sm:py-8 rounded-3xl"> */}
-        {/* paper */}
         <div className="m-8 p-4 rounded-3xl bg-gray-100">
           <div className="flex flex-col gap-8">
             <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
@@ -99,9 +106,7 @@ const SignUp = () => {
                   required=""
                 />
               </div>
-
-              {/* Email and DOB */}
-              <div className="flex gap-4">
+              <div className="flex gap-4 items-center">
                 <span className="Email basis-2/4 flex flex-col gap-2">
                   <label
                     htmlFor="email"
@@ -120,7 +125,7 @@ const SignUp = () => {
                   />
                 </span>
 
-                <span className="DOB basis-2/4 flex flex-col gap-2">
+                <div className="DOB basis-2/4 flex flex-col gap-2">
                   <label
                     htmlFor="DOB"
                     className="block  text-sm font-medium text-gray-900 dark:text-white"
@@ -135,10 +140,8 @@ const SignUp = () => {
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 0   dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required=""
                   />
-                </span>
+                </div>
               </div>
-
-              {/* contact number */}
               <div className="flex gap-4">
                 <span className="phoneNumber basis-2/4 flex flex-col gap-2">
                   <label
@@ -157,27 +160,7 @@ const SignUp = () => {
                     required=""
                   />
                 </span>
-
-                <span className="altNumber basis-2/4 flex flex-col gap-2">
-                  <label
-                    htmlFor="altNumber"
-                    className="block  text-sm font-medium text-gray-900 dark:text-white"
-                  >
-                    Alternate Number
-                  </label>
-                  <input
-                    onChange={collectFormData}
-                    type="text"
-                    name="altNumber"
-                    id="altNumber"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 0   dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="name@company.com"
-                    required=""
-                  />
-                </span>
               </div>
-
-              {/* Address */}
 
               <div className="flex flex-col gap-2">
                 <label
@@ -252,7 +235,7 @@ const SignUp = () => {
                   />
                 </span>
               </div>
-              <div className="flex flex-col gap-2">
+              {/* <div className="flex flex-col gap-2">
                 <label
                   htmlFor="password"
                   className="block  text-sm font-medium text-gray-900 dark:text-white"
@@ -267,6 +250,29 @@ const SignUp = () => {
                   placeholder="*****"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 0   dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   required=""
+                />
+              </div> */}
+              <div style={{ display: "flex", position: "relative" }}>
+                <div className="w-full">
+                  <label
+                    htmlFor="password"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  >
+                    Password
+                  </label>
+                  <input
+                    type={isPasswordVisible ? "text" : "password"}
+                    name="password"
+                    id="password"
+                    placeholder="••••••••"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required=""
+                  />
+                </div>
+                <FaEye
+                  onClick={() => setIsPasswordVisible(!isPasswordVisible)}
+                  size={25}
+                  className="absolute top-9 right-2 cursor-pointer"
                 />
               </div>
               <div className="flex items-center gap-4">
@@ -289,7 +295,7 @@ const SignUp = () => {
                     I accept the{" "}
                     <a
                       className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                      href="#"
+                      href="/"
                     >
                       Terms and Conditions
                     </a>

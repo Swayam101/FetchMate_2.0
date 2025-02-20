@@ -19,9 +19,9 @@ const MobileNavbar = () => {
 
   return (
     <nav
-      className={`sm:hidden flex flex-col max-w-screen mb-2 ${
-        menuState ?? "fade-in-left"
-      }`}
+      className={`sm:hidden flex flex-col ${
+        menuState ? "h-screen" : "h-auto"
+      } max-w-screen mb-2 ${menuState ?? "fade-in-left"}`}
     >
       <div
         className={`flex ${
@@ -122,44 +122,42 @@ const MobileNavbar = () => {
         </ul>
       </div>
       <div className={`${!menuState ? "hidden" : "flex"} flex-col w-full mt-4`}>
-        <div className="pt-2 h-full flex flex-col justify-around items-center">
-          <div className="flex flex-col gap-10 mt-4 items-center content-center w-full justify-evenly">
-            {isLoggedIn ? (
-              <NavLink to={"/cart"}>
-                <FaCartShopping size={35} />
-              </NavLink>
-            ) : (
-              <Link to="/login">
-                <button
-                  title="Login"
-                  type="button"
-                  className="focus:outline-none h-full w-32 bg-yellow-400 hover:bg-yellow-500 font-medium rounded-lg text px-4 py-2 dark:focus:ring-yellow-900"
-                >
-                  Login
-                </button>
-              </Link>
-            )}
-            {isLoggedIn ? (
-              <div
-                onClick={() => setMenuState(!menuState)}
-                className="cursor-pointer"
+        <div className="flex gap-10 mt-4 items-center content-center w-full justify-center">
+          {isLoggedIn ? (
+            <NavLink to={"/cart"}>
+              <FaCartShopping size={35} />
+            </NavLink>
+          ) : (
+            <Link to="/login">
+              <button
+                title="Login"
+                type="button"
+                className="focus:outline-none h-full w-32 bg-yellow-400 hover:bg-yellow-500 font-medium rounded-lg text px-4 py-2 dark:focus:ring-yellow-900"
               >
-                <div>
-                  <FaUserAlt size={30} />
-                </div>
-                <AvatarDropDown displayState={menuState} />
+                Login
+              </button>
+            </Link>
+          )}
+          {isLoggedIn ? (
+            <div
+              onClick={() => setMenuState(!menuState)}
+              className="cursor-pointer"
+            >
+              <div>
+                <FaUserAlt size={30} />
               </div>
-            ) : (
-              <Link to="/signup">
-                <button
-                  type="button"
-                  className="border-2 text-cyan-400 py-2 px-1 border-cyan-400 rounded-lg text-sm min-w-32 text-center active:border-b-2"
-                >
-                  Get Started
-                </button>
-              </Link>
-            )}
-          </div>
+              <AvatarDropDown displayState={menuState} />
+            </div>
+          ) : (
+            <Link to="/signup">
+              <button
+                type="button"
+                className="border-2 text-cyan-400 py-2 px-1 border-cyan-400 rounded-lg text-sm min-w-32 text-center active:border-b-2"
+              >
+                Get Started
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     </nav>

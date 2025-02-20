@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import ReactModal from "react-modal";
 import request from "../services/axios.service";
 import useUserStore from "../Store/userStore";
 import SecondryPetSitterCard from "./SecondryPetSitterCard";
 import { toast } from "react-toastify";
+import { IoMdClose } from "react-icons/io";
 
 const BookServiceModal = ({ isModalOpen, setIsModalOpen }) => {
   const [myPets, setMyPets] = useState([{ _id: "", name: "" }]);
@@ -87,25 +87,17 @@ const BookServiceModal = ({ isModalOpen, setIsModalOpen }) => {
   };
   if (loading) return <div>Loading Stuff</div>;
   return (
-    <ReactModal
-      style={{
-        content: {
-          height: "80%",
-          width: "50%",
-          left: "25%",
-          top: "13%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-around",
-          paddingLeft: "2%",
-          paddingRight: "3%",
-        },
-      }}
-      isOpen={isModalOpen}
-      onRequestClose={() => setIsModalOpen(false)}
-      contentLabel="Register Your Pet"
+    <div
+      className={`${
+        !isModalOpen ? "hidden" : "block"
+      } justify-center items-center  flex  absolute w-screen h-screen top-0 bg-[rgba(255,255,255,0.7)] backdrop-blur-md`}
     >
-      <div className="flex flex-col gap-6 h-full">
+      <div
+        className={`flex flex-col gap-6 bg-white sm:w-5/12 w-full p-12 relative`}
+      >
+        <div className="flex absolute top-8 right-8 z-10">
+          <IoMdClose size={30} />
+        </div>
         <div className="text-2xl font-bold text-center">Book A Service</div>
 
         <select
@@ -151,8 +143,8 @@ const BookServiceModal = ({ isModalOpen, setIsModalOpen }) => {
           <option value="daycare">Pet Day Care</option>
           <option value="dogwalking">Dog Walking</option>
           <option value="overnight">Overnight Stay</option>
-          <option value="birdwatching">Bird Watching</option>
-          <option value="training">Pet Training</option>
+          {/* <option value="birdwatching">Bird Watching</option> */}
+          {/* <option value="training">Pet Training</option> */}
           <option value="socialisation">Pet Socialisation</option>
         </select>
         <div className="text-center font-black text-xl">Select Pet Sitter</div>
@@ -180,7 +172,7 @@ const BookServiceModal = ({ isModalOpen, setIsModalOpen }) => {
           </button>
         </div>
       </div>
-    </ReactModal>
+    </div>
   );
 };
 

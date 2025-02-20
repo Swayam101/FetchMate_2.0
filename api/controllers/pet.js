@@ -3,6 +3,7 @@ const Pet = require("../models/Pet");
 
 // Utility Imports
 const asyncWrapper = require("../utils/asyncWrapper");
+const CustomResponse = require("../utils/Response");
 
 exports.addPet = asyncWrapper(async (req, res, next) => {
   const { name, petType, breed, gender, description } = req.body;

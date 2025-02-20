@@ -7,7 +7,6 @@ require("dotenv").config();
 
 // Router Imports
 const authRouter = require("./routers/auth");
-const blogRouter = require("./routers/blog");
 const petRouter = require("./routers/pet");
 const serviceRouter = require("./routers/service");
 
@@ -31,8 +30,6 @@ app.use("/auth", authRouter);
 app.use("/pet", protectRoute, petRouter);
 
 app.use("/service", protectRoute, serviceRouter);
-
-app.use("/blog", blogRouter);
 
 app.post("/razorpay", async (req, res) => {
   const payment_capture = 1;

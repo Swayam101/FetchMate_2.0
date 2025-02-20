@@ -15,14 +15,13 @@ const ServicesCard = ({ name, image, description }) => {
       <div className="word-wrap px-4 text-justify text-sm text-gray-400 ">
         {description}
       </div>
-      <div className="flex justify-center ">
+      <div className="flex justify-center">
         <button
           onClick={() => {
-            if (!isLoggedIn)
-              return toast.error("Log In To Perform This Action", {
-                toastId: "book-service-modal",
-              });
-            setIsModalOpen(true);
+            if (isLoggedIn) return setIsModalOpen(true);
+            return toast.error("Log In To Perform This Action", {
+              toastId: "book-service-modal",
+            });
           }}
           className="bg-yellow-500 p-2 rounded-md font-bold"
         >
