@@ -13,11 +13,10 @@ const ReviewCard = ({
   return (
     <div className="grid grid-cols-2 sm:gap-4">
       <div className="flex flex-col justify-center">
-        {" "}
         <img
           src={image}
           alt="pet sitter's"
-          className="col-span-1 rounded-[50%/20%] sm:h-full h-96"
+          className="col-span-1 rounded-[50%/20%] sm:h-full h-auto w-96"
         />
       </div>
       <div className="flex flex-col gap-2 h-auto px-2 py-4 justify-around">

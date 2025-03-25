@@ -12,7 +12,7 @@ const sliderSettings = {
   dots: true,
   infinite: false,
   speed: 500,
-  slidesToShow: 2,
+  slidesToShow: 3,
   slidesToScroll: 2,
   initialSlide: 0,
   responsive: [
@@ -46,6 +46,26 @@ const sliderSettings = {
 const ReviewSlider = () => {
   return (
     <Slider autoPlay {...sliderSettings}>
+      <ReviewCard
+        image={sam}
+        parentImage={nehu}
+        sitterName={"Swayam Prajapat"}
+        serviceName={"Dog Walking"}
+        petParent={"Nehal Patidar"}
+        review={
+          "Pet Sitter was extremely friendly and loving to my bruno. he was extremely careful and updated about my dog by himself. i willdefinitely recommed pet sitter if you are from my place and looking for a pet sitter"
+        }
+      />
+      <ReviewCard
+        image={sam}
+        parentImage={nehu}
+        sitterName={"Swayam Prajapat"}
+        serviceName={"Dog Walking"}
+        petParent={"Nehal Patidar"}
+        review={
+          "Pet Sitter was extremely friendly and loving to my bruno. he was extremely careful and updated about my dog by himself. i willdefinitely recommed pet sitter if you are from my place and looking for a pet sitter"
+        }
+      />
       <ReviewCard
         image={sam}
         parentImage={nehu}
