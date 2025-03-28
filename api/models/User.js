@@ -15,7 +15,7 @@ const userSchema = new Schema({
   DOB: {
     type: Date,
     required: true,
-    max:[()=>Date.now(),"Invalid Birth Date!"]
+    max: [() => Date.now(), "Invalid Birth Date!"],
   },
   mobile: {
     type: String,
@@ -27,16 +27,6 @@ const userSchema = new Schema({
         return true;
       },
       message: "Invalid Mobile Number",
-    },
-  },
-  alternateMobile: {
-    type: String,
-    validate: {
-      validator: (value) => {
-        if (value.length != 10) return false;
-        return true;
-      },
-      message: "Invalid Alternate Mobile Number",
     },
   },
   address: {

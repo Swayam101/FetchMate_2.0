@@ -11,6 +11,7 @@ import { FaEye } from "react-icons/fa6";
 
 const SignUp = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
   const [formState, setFormState] = useState({
     name: "",
     email: "",
@@ -43,6 +44,7 @@ const SignUp = () => {
         data: formState,
         method: "POST",
       });
+
       if (!response.status) throw new Error(response.message);
       navigate("/login");
       return toast.success("Sign Up Successful", {
@@ -71,6 +73,8 @@ const SignUp = () => {
 
   const collectFormData = (e) => {
     const key = e.target.getAttribute("name");
+    console.log("event target value  : ", e.target.value);
+
     const newObj = { ...formState };
     if (e.target.name == "terms") {
       newObj[key] = e.target.checked;
@@ -92,7 +96,7 @@ const SignUp = () => {
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium text-gray-900 dark:text-white"
+                  className="block text-sm font-medium text-gray-900  "
                 >
                   Full Name
                 </label>
@@ -102,7 +106,7 @@ const SignUp = () => {
                   name="name"
                   id="name"
                   placeholder="eg. John Doe"
-                  className="bg-gray-50 border p-2 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full   dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border p-2 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full    dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   required=""
                 />
               </div>
@@ -110,7 +114,7 @@ const SignUp = () => {
                 <span className="Email basis-2/4 flex flex-col gap-2">
                   <label
                     htmlFor="email"
-                    className="block  text-sm font-medium text-gray-900 dark:text-white"
+                    className="block  text-sm font-medium text-gray-900 "
                   >
                     Your email
                   </label>
@@ -119,7 +123,7 @@ const SignUp = () => {
                     type="email"
                     name="email"
                     id="email"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 0   dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 0    dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="name@company.com"
                     required=""
                   />
@@ -128,7 +132,7 @@ const SignUp = () => {
                 <div className="DOB basis-2/4 flex flex-col gap-2">
                   <label
                     htmlFor="DOB"
-                    className="block  text-sm font-medium text-gray-900 dark:text-white"
+                    className="block  text-sm font-medium text-gray-900 "
                   >
                     Date of Birth
                   </label>
@@ -137,7 +141,7 @@ const SignUp = () => {
                     type="date"
                     name="DOB"
                     id="DOB"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 0   dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 0    dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     required=""
                   />
                 </div>
@@ -146,7 +150,7 @@ const SignUp = () => {
                 <span className="phoneNumber basis-2/4 flex flex-col gap-2">
                   <label
                     htmlFor="number"
-                    className="block  text-sm font-medium text-gray-900 dark:text-white"
+                    className="block  text-sm font-medium text-gray-900 "
                   >
                     Phone Number
                   </label>
@@ -155,7 +159,7 @@ const SignUp = () => {
                     type="text"
                     name="phoneNumber"
                     id="phoneNumber"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 0   dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 0    dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="78956-XXXXX"
                     required=""
                   />
@@ -165,7 +169,7 @@ const SignUp = () => {
               <div className="flex flex-col gap-2">
                 <label
                   htmlFor="address"
-                  className="block  text-sm font-medium text-gray-900 dark:text-white"
+                  className="block  text-sm font-medium text-gray-900 "
                 >
                   Address
                 </label>
@@ -175,7 +179,7 @@ const SignUp = () => {
                   name="address"
                   id="address"
                   placeholder="89 LIG colony"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 0   dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 0    dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   required=""
                 />
               </div>
@@ -184,7 +188,7 @@ const SignUp = () => {
                 <span className="Address flex flex-col gap-2">
                   <label
                     htmlFor="city"
-                    className="block  text-sm font-medium text-gray-900 dark:text-white"
+                    className="block  text-sm font-medium text-gray-900 "
                   >
                     City
                   </label>
@@ -193,7 +197,7 @@ const SignUp = () => {
                     type="city"
                     name="city"
                     id="city"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 0   dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 0    dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="Indore"
                     required=""
                   />
@@ -202,7 +206,7 @@ const SignUp = () => {
                 <span className="phoneNumber flex flex-col gap-2">
                   <label
                     htmlFor="state"
-                    className="block  text-sm font-medium text-gray-900 dark:text-white"
+                    className="block  text-sm font-medium text-gray-900 "
                   >
                     State
                   </label>
@@ -211,7 +215,7 @@ const SignUp = () => {
                     type="state"
                     name="state"
                     id="state"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 0   dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 0    dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="M.P."
                     required=""
                   />
@@ -220,7 +224,7 @@ const SignUp = () => {
                 <span className="country flex flex-col gap-2">
                   <label
                     htmlFor="country"
-                    className="block  text-sm font-medium text-gray-900 dark:text-white"
+                    className="block  text-sm font-medium text-gray-900 "
                   >
                     Country
                   </label>
@@ -229,7 +233,7 @@ const SignUp = () => {
                     type="country"
                     name="country"
                     id="country"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 0   dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 0    dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     placeholder="India"
                     required=""
                   />
@@ -238,7 +242,7 @@ const SignUp = () => {
               {/* <div className="flex flex-col gap-2">
                 <label
                   htmlFor="password"
-                  className="block  text-sm font-medium text-gray-900 dark:text-white"
+                  className="block  text-sm font-medium text-gray-900 "
                 >
                   Password
                 </label>
@@ -248,7 +252,7 @@ const SignUp = () => {
                   name="password"
                   id="password"
                   placeholder="*****"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 0   dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 0    dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   required=""
                 />
               </div> */}
@@ -256,17 +260,18 @@ const SignUp = () => {
                 <div className="w-full">
                   <label
                     htmlFor="password"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="block mb-2 text-sm font-medium text-gray-900 "
                   >
                     Password
                   </label>
                   <input
+                    onChange={collectFormData}
                     type={isPasswordVisible ? "text" : "password"}
                     name="password"
                     id="password"
                     placeholder="••••••••"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required=""
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    required
                   />
                 </div>
                 <FaEye

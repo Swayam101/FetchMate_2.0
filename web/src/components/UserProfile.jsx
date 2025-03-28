@@ -59,7 +59,7 @@ const Profile = () => {
         <div className="contentcontainer flex px-10 pt-36 ">
           <div className="rightsection flex pl-10 w-11/12 gap-4 ">
             <img
-              src={userData.profileUrl}
+              src={userData.profileUrl ?? "../assets/jhamela.png"}
               className="w-32 h-32 rounded-full border-2 border-black"
             ></img>
             <div className="h-fit w-fit self-center">

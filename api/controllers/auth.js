@@ -9,14 +9,12 @@ const CustomResponse = require("../utils/Response");
 const asyncWrapper = require("../utils/asyncWrapper");
 const { signAccessToken } = require("../utils/signToken");
 
-//      Controller Functions
-
+// Controller Functions
 exports.signUpUser = asyncWrapper(async (req, res, next) => {
   const {
     name,
     email,
     phoneNumber,
-    altNumber,
     password: userPassword,
     petSitter,
     country,
@@ -33,14 +31,12 @@ exports.signUpUser = asyncWrapper(async (req, res, next) => {
   roles.push("buyer");
   roles.push("petParent");
   if (petSitter) roles.push("petSitter");
-  console.log("hashed password :  ", userPassword);
 
   const hashedPassword = await bcrypt.hash(userPassword, 2);
   const userCreds = await User.create({
     name,
     email,
     mobile: phoneNumber,
-    alternateMobile: altNumber,
     roles,
     password: hashedPassword,
     country,
@@ -49,7 +45,7 @@ exports.signUpUser = asyncWrapper(async (req, res, next) => {
     DOB,
     state,
   });
-  const { password, ...user } = userCreds;
+  const { password, ...user } = userCreds.toObject();
   console.log(user);
   const response = new CustomResponse(true, user, null, "Sign Up Successful!");
   res.status(200).json(response);
