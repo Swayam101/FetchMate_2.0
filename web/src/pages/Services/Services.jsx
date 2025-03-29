@@ -8,7 +8,7 @@ import ServiceThumb4 from "../../assets/servicesThumb4.png";
 import ServiceThumb5 from "../../assets/servicesThumb5.png";
 import ServiceThumb6 from "../../assets/servicesThumb6.png";
 
-import Services2 from "./Services2";
+// import Services2 from "./Services2";
 
 const Services = () => {
   const observer = new IntersectionObserver((entries) => {

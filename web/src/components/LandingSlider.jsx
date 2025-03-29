@@ -8,7 +8,7 @@ const sliderSettings = {
   dots: true,
   infinite: false,
   speed: 500,
-  slidesToShow: 4,
+  slidesToShow: 3,
   slidesToScroll: 4,
   initialSlide: 0,
   responsive: [
@@ -41,7 +41,7 @@ const sliderSettings = {
 
 const LandingSlider = () => {
   return (
-    <div className="px-20 mb-4">
+    <div className="px-16 mb-4">
       <Slider autoPlay {...sliderSettings}>
         <HomePageProductCard />
         <HomePageProductCard />

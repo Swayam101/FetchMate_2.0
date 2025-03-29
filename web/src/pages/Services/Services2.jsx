@@ -26,7 +26,7 @@ const Services2 = () => {
               <div className="inline mr-6">
                 <img className="inline" src={TrackerBullets} alt="" />
               </div>
-              Charge tracking bel until indicator displays complete charge
+              Charge tracking belt until indicator displays complete charge
             </li>
             <li>
               <div className="inline mr-6">
