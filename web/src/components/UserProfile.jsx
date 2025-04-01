@@ -1,8 +1,7 @@
-import { FaEdit } from "react-icons/fa";
+import { FaEdit, FaUser } from "react-icons/fa";
 import useUserStore from "../Store/userStore";
 import request from "../services/axios.service";
 import { CiMedicalCross } from "react-icons/ci";
-
 import { useEffect, useState } from "react";
 import PetProfileCard from "./PetProfileCard";
 import AddPetModal from "./AddPetModal";
@@ -36,7 +35,7 @@ const Profile = () => {
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append("profile", file);
-    axios({
+    request({
       url: "/auth/add-profile",
       method: "POST",
       data: formData,
@@ -53,263 +52,183 @@ const Profile = () => {
   };
 
   return (
-    <>
-      {/* Header */}
-      <div className="topheader h-72 cover-image">
-        <div className="contentcontainer flex px-10 pt-36 ">
-          <div className="rightsection flex pl-10 w-11/12 gap-4 ">
-            <img
-              src={userData.profileUrl ?? "../assets/jhamela.png"}
-              className="w-32 h-32 rounded-full border-2 border-black"
-            ></img>
-            <div className="h-fit w-fit self-center">
-              <h1 className="text-2xl font-bold">{userData.name}</h1>
-              <h5 className="text-base">
-                {userData.roles.length > 2 ? "Pet Sitter" : "Pet Parent"}
-              </h5>
+    <div className="min-h-screen bg-gray-50">
+      {/* Header Section */}
+      <div className="bg-white border-b border-gray-200">
+        <div className="container mx-auto px-4 py-8">
+          <div className="flex items-center gap-8">
+            <div className="relative">
+              <div className="absolute inset-0 bg-gray-100 rounded-full blur-md opacity-50" />
+              {userData.profileUrl ? (
+                <img
+                  src={userData.profileUrl}
+                  alt="Profile"
+                  className="w-40 h-40 rounded-full border-4 border-white shadow-lg relative z-10"
+                />
+              ) : (
+                <div className="w-40 h-40 rounded-full border-4 border-white shadow-lg relative z-10 bg-gray-100 flex items-center justify-center">
+                  <FaUser className="w-20 h-20 text-gray-400" />
+                </div>
+              )}
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-gray-800 mb-2">{userData.name}</h1>
+              <div className="flex items-center gap-4">
+                <span className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">
+                  {userData.roles.length > 2 ? "Pet Sitter" : "Pet Parent"}
+                </span>
+                <button
+                  onClick={() => setChangeProfile(!changeProfile)}
+                  className="flex items-center gap-2 px-4 py-2 bg-[#FF9F1C] text-white rounded-lg hover:bg-[#e68f1a] transition-colors"
+                >
+                  <FaEdit size={16} />
+                  <span>Change Photo</span>
+                </button>
+              </div>
+              {changeProfile && (
+                <div className="mt-4">
+                  <label className="block text-gray-700 text-sm mb-2">Upload New Photo</label>
+                  <input
+                    onChange={submitProfile}
+                    type="file"
+                    accept="image/*"
+                    className="block w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#FF9F1C] file:text-white hover:file:bg-[#e68f1a]"
+                  />
+                </div>
+              )}
             </div>
           </div>
-          <div className="leftsection self-end flex">
-            {changeProfile ? (
-              <div className="inline-flex w-fit items-center">
-                <label htmlFor="profileUpload w-fit">
-                  Upload Profile Image
-                </label>
-                <input onChange={submitProfile} type="file" />
-              </div>
-            ) : (
-              ""
-            )}
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="container mx-auto px-4 py-8">
+        {/* Personal Information */}
+        <div className="bg-white rounded-2xl shadow-lg p-8 mb-8">
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">Personal Information</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">First Name</label>
+              <input
+                disabled
+                type="text"
+                value={userData.name.split(" ")[0]}
+                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-700"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">Last Name</label>
+              <input
+                disabled
+                type="text"
+                value={userData.name.split(" ")[1]}
+                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-700"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">Email</label>
+              <input
+                disabled
+                type="email"
+                value={userData.email}
+                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-700"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">Date of Birth</label>
+              <input
+                disabled
+                type="text"
+                value={dob.toDateString()}
+                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-700"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">Phone Number</label>
+              <input
+                disabled
+                type="tel"
+                value={userData.mobile}
+                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-700"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">Alternate Number</label>
+              <input
+                disabled
+                type="tel"
+                value={userData.altMobile || "N/A"}
+                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-700"
+              />
+            </div>
+            <div className="md:col-span-2 space-y-2">
+              <label className="block text-sm font-medium text-gray-700">Address</label>
+              <input
+                disabled
+                type="text"
+                value={userData.address}
+                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-700"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">City</label>
+              <input
+                disabled
+                type="text"
+                value={userData.city}
+                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-700"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">State</label>
+              <input
+                disabled
+                type="text"
+                value={userData.state}
+                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-700"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">Country</label>
+              <input
+                disabled
+                type="text"
+                value={userData.country}
+                className="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-700"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Pets Section */}
+        <div className="bg-white rounded-2xl shadow-lg p-8">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold text-gray-800">Your Pets</h2>
             <button
-              content="Change Profile Photo"
-              onClick={() => setChangeProfile(!changeProfile)}
-              class="text-white bg-cyan-400 hover:bg-cyan-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              onClick={() => setIsModalOpen(true)}
+              className="flex items-center gap-2 px-4 py-2 bg-[#FF9F1C] text-white rounded-lg hover:bg-[#e68f1a] transition-colors"
             >
-              Change Profile
-              <FaEdit size={18} />
+              <CiMedicalCross size={20} />
+              <span>Add Pet</span>
             </button>
           </div>
-        </div>
-      </div>
-      {/* Botton form */}
-      <div className="ms-20 me-20 mt-10 gap-12">
-        <div className="grid grid-cols-2 gap-4 ">
-          <span className="FirstName">
-            <label
-              htmlFor="Name"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              First Name
-            </label>
-            <input
-              disabled
-              type="text"
-              name="firstName"
-              value={userData.name.split(" ")[0]}
-              id="firstName"
-              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Jack"
-              required=""
-            />
-          </span>
-          <span className="LastName">
-            <label
-              htmlFor="Last Name"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Last Name
-            </label>
-            <input
-              type="text"
-              name="lastName"
-              value={userData.name.split(" ")[1]}
-              id="lastName"
-              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Leo"
-              required=""
-            />
-          </span>
-          <span className="Email">
-            <label
-              htmlFor="email"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Your email
-            </label>
-            <input
-              disabled
-              type="email"
-              name="email"
-              value={userData.email}
-              id="email"
-              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="name@company.com"
-              required=""
-            />
-          </span>
-
-          <span className="DOB">
-            <label
-              htmlFor="DOB"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Date of Birth
-            </label>
-            <input
-              disabled
-              type="text"
-              value={dob.toDateString()}
-              name="DOB"
-              id="DOB"
-              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              required=""
-            />
-          </span>
-
-          <span className="phoneNumber">
-            <label
-              htmlFor="number"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Phone Number
-            </label>
-            <input
-              disabled
-              type="number"
-              name="phoneNumber"
-              value={userData.mobile}
-              id="phoneNumber"
-              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="78956-XXXXX"
-              required=""
-            />
-          </span>
-
-          <span className="altNumber">
-            <label
-              htmlFor="altNumber"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Alternate Number
-            </label>
-            <input
-              disabled
-              type="number"
-              name="altNumber"
-              value={userData.altMobile}
-              id="altNumber"
-              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="N/A"
-            />
-          </span>
-
-          <span className="address">
-            <label
-              htmlFor="address"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Address
-            </label>
-            <input
-              disabled
-              value={userData.address}
-              type="address"
-              name="address"
-              id="address"
-              placeholder="89 LIG colony"
-              className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              required=""
-            />
-          </span>
-
-          <div className="flex gap-4">
-            <span className="Address">
-              <label
-                htmlFor="city"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                City
-              </label>
-              <input
-                disabled
-                value={userData.city}
-                type="city"
-                name="city"
-                id="city"
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Indore"
-                required=""
-              />
-            </span>
-
-            <span className="phoneNumber">
-              <label
-                htmlFor="state"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                State
-              </label>
-              <input
-                disabled
-                value={userData.state}
-                type="state"
-                name="state"
-                id="state"
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="M.P."
-                required=""
-              />
-            </span>
-
-            <span className="country">
-              <label
-                htmlFor="country"
-                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >
-                Country
-              </label>
-              <input
-                disabled
-                value={userData.country}
-                type="country"
-                name="country"
-                id="country"
-                className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="India"
-                required=""
-              />
-            </span>
-          </div>
-        </div>
-        <div>
-          <h3 className="text-3xl text-center mt-4 py-2 bg-gray-200">
-            Your Pets
-          </h3>
-          <div className="flex gap-20 items-center">
-            {pets.map(({ imageUrl, name, breed, gender, description }) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {pets.map((pet, index) => (
               <PetProfileCard
-                image={imageUrl}
-                name={name}
-                breed={breed}
-                gender={gender}
-                description={description}
+                key={index}
+                name={pet.name}
+                image={pet.imageUrl}
+                breed={pet.breed}
+                gender={pet.gender}
+                description={pet.description}
               />
             ))}
-            {/* {pets.map(({name,gender,breed,imageUrl})=>(<ProductCard image={imageUrl} name={name} price={gender} weight={breed}/>))} */}
-
-            <CiMedicalCross
-              onClick={() => setIsModalOpen(true)}
-              size={100}
-              title="Add A Pet"
-            />
-            <AddPetModal
-              isModalOpen={isModalOpen}
-              setIsModalOpen={setIsModalOpen}
-            />
           </div>
         </div>
       </div>
-    </>
+
+      <AddPetModal isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} />
+    </div>
   );
 };
 

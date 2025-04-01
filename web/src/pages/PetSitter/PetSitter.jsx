@@ -41,10 +41,13 @@ const PetSitter = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      if (!response.data.status) throw new Error(response.data.message);
-      setUserData(response.data.newUser);
+      console.log("response : ", response);
+      
+      // if (!response.data.status) throw new Error(response.data.message);
+     
       toast.success("Congratulations You're Now A Pet Sitter");
     } catch (error) {
+      
       toast.error(error.message);
     }
   };

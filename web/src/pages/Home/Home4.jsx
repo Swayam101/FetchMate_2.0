@@ -1,35 +1,46 @@
 import React from "react";
-
 import LandingSlider from "../../components/LandingSlider";
 import { Link } from "react-router-dom";
+import { IoPaw, IoCart } from "react-icons/io5";
 
 const Home4 = () => {
   return (
-    <div
-      className={`sm:rounded-tr-[500px] sm:rounded-br-[500px] h-auto side-capsule-shadow py-8 sm:mx-0 rounded-3xl sm:mb-0 mb-8`}
-    >
-      <div className="text-center pb-6 sm:text-4xl text-2xl font-bold text-cyan-400">
-        Our Products
-      </div>
-      <LandingSlider />
-      <div className="flex items-center justify-center mt-8 gap-10">
-        <Link to="/shop">
-          <button
-            type="button"
-            className="bg-[#FF9F1C] hover:bg-yellow-500 rounded-lg font-medium sm:text-xl text-lg px-2 py-1  sm:px-4 sm:py-2 "
-          >
-            Shop Now
-          </button>
-        </Link>
+    <div className="py-12 bg-white">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#FF9F1C]/10 rounded-full mb-6">
+            <IoPaw className="text-[#FF9F1C]" />
+            <span className="text-[#FF9F1C] font-medium">Our Products</span>
+          </div>
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+            Shop Premium Pet Products
+          </h2>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Discover our carefully curated collection of high-quality pet products that your furry friends will love.
+          </p>
+        </div>
 
-        <Link to={"/cart"}>
-          <button
-            type="button"
-            className=" hover:bg-yellow-300 text-yellow-400  border-2 border-yellow-400 rounded-lg font-medium  sm:text-xl text-lg px-2 py-1  sm:px-4 sm:py-2 "
-          >
-            View Cart
-          </button>
-        </Link>
+        {/* Products Slider */}
+        <div className="mb-12">
+          <LandingSlider />
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Link to="/shop">
+            <button className="w-full sm:w-auto bg-[#FF9F1C] text-white px-8 py-3 rounded-lg font-medium hover:bg-[#e68f1a] transition-colors flex items-center justify-center gap-2">
+              <IoPaw />
+              Shop Now
+            </button>
+          </Link>
+
+          <Link to="/cart">
+            <button className="w-full sm:w-auto border-2 border-[#FF9F1C] text-[#FF9F1C] px-8 py-3 rounded-lg font-medium hover:bg-[#FF9F1C] hover:text-white transition-colors flex items-center justify-center gap-2">
+              <IoCart />
+              View Cart
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );

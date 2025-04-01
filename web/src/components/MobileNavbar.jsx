@@ -4,13 +4,14 @@ import { FaCartShopping } from "react-icons/fa6";
 import { FaUserAlt } from "react-icons/fa";
 import { Link, NavLink } from "react-router-dom";
 import useUserStore from "../Store/userStore";
+import useCartStore from "../Store/cartStore";
 import AvatarDropDown from "./AvatarDropDown";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { IoMdClose } from "react-icons/io";
 
 const MobileNavbar = () => {
   const isLoggedIn = useUserStore((state) => state.isLoggedIn);
-
+  const cartCount = useCartStore((state) => state.cart.length);
   const [menuState, setMenuState] = useState(false);
 
   const handleHamburgerClick = () => {
@@ -111,7 +112,7 @@ const MobileNavbar = () => {
               onClick={handleHamburgerClick}
               className={({ isActive }) =>
                 `${
-                  isActive ? "text-yellow-400" : ""
+                  isActive ? "text-yellow-400" : "text-black"
                 }  border-b-black border-b-[1px]`
               }
             >
@@ -124,8 +125,13 @@ const MobileNavbar = () => {
       <div className={`${!menuState ? "hidden" : "flex"} flex-col w-full mt-4`}>
         <div className="flex gap-10 mt-4 items-center content-center w-full justify-center">
           {isLoggedIn ? (
-            <NavLink to={"/cart"}>
+            <NavLink to={"/cart"} className="relative">
               <FaCartShopping size={35} />
+              {cartCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-[#FF9F1C] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  {cartCount}
+                </span>
+              )}
             </NavLink>
           ) : (
             <Link to="/login">

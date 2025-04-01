@@ -12,7 +12,9 @@ function App() {
     <>
       <NavBar />
       <MobileNavbar />
-      <Outlet />
+      <main className="pt-16 md:pt-16">
+        <Outlet />
+      </main>
       <Footer />
     </>
   );

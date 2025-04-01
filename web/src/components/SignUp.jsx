@@ -1,17 +1,14 @@
 import { useEffect, useState } from "react";
-
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import useUserStore from "../Store/userStore";
-
 import request from "../services/axios.service";
-
-import BlueLogo from "../assets/FETCHMATE LOGO/BlueLogo.svg";
+import OrangeIconNameLogo from "../assets/FETCHMATE LOGO/Secondary Logo/IconNameOrange.svg";
 import { FaEye } from "react-icons/fa6";
+import { IoPaw } from "react-icons/io5";
 
 const SignUp = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
   const [formState, setFormState] = useState({
     name: "",
     email: "",
@@ -73,266 +70,220 @@ const SignUp = () => {
 
   const collectFormData = (e) => {
     const key = e.target.getAttribute("name");
-    console.log("event target value  : ", e.target.value);
-
     const newObj = { ...formState };
-    if (e.target.name == "terms") {
+    if (e.target.name === "terms") {
       newObj[key] = e.target.checked;
-    } else newObj[key] = e.target.value;
+    } else {
+      newObj[key] = e.target.value;
+    }
     setFormState(newObj);
   };
 
   return (
-    <div className="flex sm:flex-row-reverse flex-col-reverse justify-center">
-      <section className="flex flex-col justify-center items-center basis-2/4">
-        <div className="m-8 p-4 rounded-3xl bg-gray-100">
-          <div className="flex flex-col gap-8">
-            <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
-              Get Started
-            </h1>
-            <form className=" flex flex-col gap-2">
-              {/* Name */}
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl w-full space-y-8 bg-white rounded-2xl shadow-xl p-8">
+        <div className="text-center">
+          <Link to="/" className="flex justify-center mb-8">
+            <img src={OrangeIconNameLogo} alt="FetchMate Logo" className="h-16" />
+          </Link>
+          <h2 className="text-3xl font-bold text-gray-900">Create your account</h2>
+          <p className="mt-2 text-sm text-gray-600">
+            Join FetchMate and give your pets the care they deserve
+          </p>
+        </div>
 
-              <div className="flex flex-col gap-2">
-                <label
-                  htmlFor="name"
-                  className="block text-sm font-medium text-gray-900  "
-                >
-                  Full Name
-                </label>
+        <form onSubmit={submitForm} className="mt-8 space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Full Name */}
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                Full Name
+              </label>
+              <input
+                onChange={collectFormData}
+                type="text"
+                name="name"
+                id="name"
+                placeholder="eg. John Doe"
+                className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF9F1C] focus:border-transparent transition-all"
+                required
+              />
+            </div>
+
+            {/* Email */}
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                Email Address
+              </label>
+              <input
+                onChange={collectFormData}
+                type="email"
+                name="email"
+                id="email"
+                placeholder="name@company.com"
+                className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF9F1C] focus:border-transparent transition-all"
+                required
+              />
+            </div>
+
+            {/* Date of Birth */}
+            <div>
+              <label htmlFor="DOB" className="block text-sm font-medium text-gray-700">
+                Date of Birth
+              </label>
+              <input
+                onChange={collectFormData}
+                type="date"
+                name="DOB"
+                id="DOB"
+                className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF9F1C] focus:border-transparent transition-all"
+                required
+              />
+            </div>
+
+            {/* Phone Number */}
+            <div>
+              <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">
+                Phone Number
+              </label>
+              <input
+                onChange={collectFormData}
+                type="tel"
+                name="phoneNumber"
+                id="phoneNumber"
+                placeholder="78956-XXXXX"
+                className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF9F1C] focus:border-transparent transition-all"
+                required
+              />
+            </div>
+
+            {/* Address */}
+            <div className="md:col-span-2">
+              <label htmlFor="address" className="block text-sm font-medium text-gray-700">
+                Address
+              </label>
+              <input
+                onChange={collectFormData}
+                type="text"
+                name="address"
+                id="address"
+                placeholder="89 LIG colony"
+                className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF9F1C] focus:border-transparent transition-all"
+                required
+              />
+            </div>
+
+            {/* City */}
+            <div>
+              <label htmlFor="city" className="block text-sm font-medium text-gray-700">
+                City
+              </label>
+              <input
+                onChange={collectFormData}
+                type="text"
+                name="city"
+                id="city"
+                placeholder="Indore"
+                className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF9F1C] focus:border-transparent transition-all"
+                required
+              />
+            </div>
+
+            {/* State */}
+            <div>
+              <label htmlFor="state" className="block text-sm font-medium text-gray-700">
+                State
+              </label>
+              <input
+                onChange={collectFormData}
+                type="text"
+                name="state"
+                id="state"
+                placeholder="M.P."
+                className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF9F1C] focus:border-transparent transition-all"
+                required
+              />
+            </div>
+
+            {/* Country */}
+            <div>
+              <label htmlFor="country" className="block text-sm font-medium text-gray-700">
+                Country
+              </label>
+              <input
+                onChange={collectFormData}
+                type="text"
+                name="country"
+                id="country"
+                placeholder="India"
+                className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF9F1C] focus:border-transparent transition-all"
+                required
+              />
+            </div>
+
+            {/* Password */}
+            <div className="md:col-span-2">
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                Password
+              </label>
+              <div className="relative">
                 <input
                   onChange={collectFormData}
-                  type="text"
-                  name="name"
-                  id="name"
-                  placeholder="eg. John Doe"
-                  className="bg-gray-50 border p-2 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full    dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required=""
-                />
-              </div>
-              <div className="flex gap-4 items-center">
-                <span className="Email basis-2/4 flex flex-col gap-2">
-                  <label
-                    htmlFor="email"
-                    className="block  text-sm font-medium text-gray-900 "
-                  >
-                    Your email
-                  </label>
-                  <input
-                    onChange={collectFormData}
-                    type="email"
-                    name="email"
-                    id="email"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 0    dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="name@company.com"
-                    required=""
-                  />
-                </span>
-
-                <div className="DOB basis-2/4 flex flex-col gap-2">
-                  <label
-                    htmlFor="DOB"
-                    className="block  text-sm font-medium text-gray-900 "
-                  >
-                    Date of Birth
-                  </label>
-                  <input
-                    onChange={collectFormData}
-                    type="date"
-                    name="DOB"
-                    id="DOB"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 0    dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required=""
-                  />
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <span className="phoneNumber basis-2/4 flex flex-col gap-2">
-                  <label
-                    htmlFor="number"
-                    className="block  text-sm font-medium text-gray-900 "
-                  >
-                    Phone Number
-                  </label>
-                  <input
-                    onChange={collectFormData}
-                    type="text"
-                    name="phoneNumber"
-                    id="phoneNumber"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 0    dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="78956-XXXXX"
-                    required=""
-                  />
-                </span>
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <label
-                  htmlFor="address"
-                  className="block  text-sm font-medium text-gray-900 "
-                >
-                  Address
-                </label>
-                <input
-                  onChange={collectFormData}
-                  type="text"
-                  name="address"
-                  id="address"
-                  placeholder="89 LIG colony"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 0    dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required=""
-                />
-              </div>
-
-              <div className="flex gap-4">
-                <span className="Address flex flex-col gap-2">
-                  <label
-                    htmlFor="city"
-                    className="block  text-sm font-medium text-gray-900 "
-                  >
-                    City
-                  </label>
-                  <input
-                    onChange={collectFormData}
-                    type="city"
-                    name="city"
-                    id="city"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 0    dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Indore"
-                    required=""
-                  />
-                </span>
-
-                <span className="phoneNumber flex flex-col gap-2">
-                  <label
-                    htmlFor="state"
-                    className="block  text-sm font-medium text-gray-900 "
-                  >
-                    State
-                  </label>
-                  <input
-                    onChange={collectFormData}
-                    type="state"
-                    name="state"
-                    id="state"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 0    dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="M.P."
-                    required=""
-                  />
-                </span>
-
-                <span className="country flex flex-col gap-2">
-                  <label
-                    htmlFor="country"
-                    className="block  text-sm font-medium text-gray-900 "
-                  >
-                    Country
-                  </label>
-                  <input
-                    onChange={collectFormData}
-                    type="country"
-                    name="country"
-                    id="country"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 0    dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="India"
-                    required=""
-                  />
-                </span>
-              </div>
-              {/* <div className="flex flex-col gap-2">
-                <label
-                  htmlFor="password"
-                  className="block  text-sm font-medium text-gray-900 "
-                >
-                  Password
-                </label>
-                <input
-                  onChange={collectFormData}
-                  type="password"
+                  type={isPasswordVisible ? "text" : "password"}
                   name="password"
                   id="password"
-                  placeholder="*****"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 0    dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  required=""
+                  placeholder="••••••••"
+                  className="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF9F1C] focus:border-transparent transition-all"
+                  required
                 />
-              </div> */}
-              <div style={{ display: "flex", position: "relative" }}>
-                <div className="w-full">
-                  <label
-                    htmlFor="password"
-                    className="block mb-2 text-sm font-medium text-gray-900 "
-                  >
-                    Password
-                  </label>
-                  <input
-                    onChange={collectFormData}
-                    type={isPasswordVisible ? "text" : "password"}
-                    name="password"
-                    id="password"
-                    placeholder="••••••••"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required
-                  />
-                </div>
-                <FaEye
+                <button
+                  type="button"
                   onClick={() => setIsPasswordVisible(!isPasswordVisible)}
-                  size={25}
-                  className="absolute top-9 right-2 cursor-pointer"
-                />
-              </div>
-              <div className="flex items-center gap-4">
-                <div className="flex items-center h-5">
-                  <input
-                    onChange={collectFormData}
-                    name="terms"
-                    id="terms"
-                    aria-describedby="terms"
-                    type="checkbox"
-                    className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 0  dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                    required=""
-                  />
-                </div>
-                <div className="text-sm">
-                  <label
-                    htmlFor="terms"
-                    className="font-light text-gray-500 dark:text-gray-300"
-                  >
-                    I accept the{" "}
-                    <a
-                      className="font-medium text-primary-600 hover:underline dark:text-primary-500"
-                      href="/"
-                    >
-                      Terms and Conditions
-                    </a>
-                  </label>
-                </div>
-              </div>
-              <button
-                onClick={submitForm}
-                className="border-2 p-4 hover:bg-gray-200 my-4"
-              >
-                SignUp
-              </button>
-              <div className="text-sm font-light text-gray-500 dark:text-gray-400 flex gap-2">
-                <p>Already have an account? </p>
-                <Link
-                  to="/login"
-                  className="font-medium text-blue-700 text-primary-600 hover:underline dark:text-primary-500"
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center"
                 >
-                  Login here
-                </Link>
+                  <FaEye className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                </button>
               </div>
-            </form>
-          </div>
-        </div>
-      </section>
+            </div>
 
-      <div className="basis-2/4 sm:py-0 pt-8 flex items-center justify-center">
-        <img
-          src={BlueLogo}
-          alt="FetchMate Logo"
-          className="h-auto sm:w-64 w-32"
-        />
+            {/* Terms and Conditions */}
+            <div className="md:col-span-2">
+              <div className="flex items-center">
+                <input
+                  onChange={collectFormData}
+                  name="terms"
+                  id="terms"
+                  type="checkbox"
+                  className="h-4 w-4 text-[#FF9F1C] focus:ring-[#FF9F1C] border-gray-300 rounded"
+                  required
+                />
+                <label htmlFor="terms" className="ml-2 block text-sm text-gray-700">
+                  I accept the{" "}
+                  <a href="/" className="font-medium text-[#FF9F1C] hover:text-[#e68f1a]">
+                    Terms and Conditions
+                  </a>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <button
+              type="submit"
+              className="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-[#FF9F1C] hover:bg-[#e68f1a] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FF9F1C] transition-colors"
+            >
+              <IoPaw />
+              Create Account
+            </button>
+
+            <div className="text-center text-sm text-gray-600">
+              Already have an account?{" "}
+              <Link to="/login" className="font-medium text-[#FF9F1C] hover:text-[#e68f1a]">
+                Sign in
+              </Link>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   );

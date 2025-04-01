@@ -1,5 +1,6 @@
 import React from "react";
 import { MdDelete } from "react-icons/md";
+import { FaUserCircle } from "react-icons/fa";
 import request from "../../services/axios.service";
 import useUserStore from "../../Store/userStore";
 import { useNavigate } from "react-router-dom";
@@ -34,8 +35,12 @@ const PetSitterCard = ({
   pickUpTime,
 }) => {
   const token = useUserStore((status) => status.jwtToken);
-
   const navigate = useNavigate();
+
+  const handleImageError = (e) => {
+    e.target.onerror = null; // Prevent infinite loop
+    e.target.src = ''; // Clear the src to trigger the fallback
+  };
 
   const reactOnRequest = async (status) => {
     const response = await request({
@@ -66,13 +71,20 @@ const PetSitterCard = ({
     <div className="max-w-xs">
       <div className="bg-white shadow-xl rounded-lg py-3">
         <div className="photo-wrapper p-2">
-          <img
-            className="w-32 h-32 rounded-full mx-auto"
-            src={image}
-            alt="John Doe"
-          />
+          {image ? (
+            <img
+              className="w-32 h-32 rounded-full mx-auto object-cover border-4 border-white shadow-md"
+              src={image}
+              alt={`${name}'s profile`}
+              onError={handleImageError}
+            />
+          ) : (
+            <div className="w-32 h-32 rounded-full mx-auto border-4 border-white shadow-md bg-gray-100 flex items-center justify-center">
+              <FaUserCircle className="w-28 h-28 text-gray-400" />
+            </div>
+          )}
         </div>
-        <div class="p-2">
+        <div className="p-2">
           <h3 className="text-center text-xl text-gray-900 font-medium leading-8">
             {name}
           </h3>
