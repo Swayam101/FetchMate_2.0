@@ -3,7 +3,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-require("dotenv").config();
+const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, ".env") });
 
 // Router Imports
 const authRouter = require("./routers/auth");
@@ -18,6 +19,7 @@ const errorHandler = require("./middlewares/errorHandler");
 // express app initialisation
 const app = express();
 const PORT = process.env.PORT || 4000;
+console.log("env variable", process.env);
 
 // Middle wares
 app.use(cors());
